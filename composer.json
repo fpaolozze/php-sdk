@@ -1,5 +1,8 @@
 {
     "require": {
         "php-curl-class/php-curl-class": "^7.3"
+    },
+    "autoload": {
+        "psr-4": {"Paggi\\": "lib/"}
     }
 }
