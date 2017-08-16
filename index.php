@@ -4,11 +4,13 @@ include __DIR__ . '/lib/Paggi.php';
 include __DIR__ . '/lib/Cards.php';
 include __DIR__ . '/lib/Card.php';
 include __DIR__ . '/lib/Charges.php';
+include __DIR__ . '/lib/Address.php';
 
 
 use Paggi\Paggi;
 use Paggi\Cards;
 use Paggi\Card;
+use Paggi\Address;
 
 $dev_token = "B31DCE74-E768-43ED-86DA-85501612548F";
 $staging_token = "d3606313-bc7e-428d-8254-ec83853bbd72";
@@ -47,25 +49,25 @@ $card->setMonth("6");
 $card->setYear("19");
 $card->setCvc("122");
 $card->setCardAlias("Favorite Platium card");
-//$card->setValidate(false);
 
 $metadata = array("internal_id"=>"84372");
 
-//$card->setMetadata($metadata);
+$card->setMetadata($metadata);
 
-///$address = array("street"=>"Losten Street, 192", "city"=>"Yahar'gul","state"=>"YX");
-//$card->setAddress($address);
+$address = new Address();
+$address->setCity("Sao Paulo");
+$address->setState("SP");
+$address->setStreet("Maranhao");
+$address->setZip("120202");
+
+$card->setAddress($address);
 
 
-//$json = json_encode($card);
+$resul = $cards->create($card);
 
+//echo(json_decode($resul,true)['name']);
+echo ($resul);
 
-echo $cards->create($card->jsonSerialize());
-
-//valido
-//card_6d502929-c214-4c3f-8e4d-191bd42edafa
-//nao valido
-//card_2293f89b-8312-4309-a196-0f98de9d51e0
 
 
 
