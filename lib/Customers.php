@@ -2,12 +2,14 @@
 
 namespace Paggi;
 
-class Customers{
+class Customers
+{
 
-    use find, findById, insert, delete {
-        find::__construct as private __findConstruct;
+    use findAll, findById, insert, update {
+        findAll::__construct as private __findConstruct;
         findById::__construct as private __findByIdConstruct;
         insert::__construct as private __insertConstruct;
+        update::__construct as private __updateConstruct;
     }
 
     public function __construct()
@@ -15,7 +17,8 @@ class Customers{
         $this->__findConstruct();
         $this->__findByIdConstruct();
         $this->__insertConstruct();
-
+        $this->__updateConstruct();
     }
 }
+
 ?>
