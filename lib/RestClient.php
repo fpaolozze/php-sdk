@@ -74,6 +74,7 @@ trait insert
 
     public function create($param)
     {
+        print_r($param);
         $this->curl->post($this->rest->getEndpoint($this->class), json_encode($param));
 
         if ($this->curl->error) {
@@ -153,7 +154,7 @@ class RestClient
         $this->curl = new Curl();
         $this->curl->setBasicAuthentication($token, $token);
         $this->curl->setDefaultJsonDecoder($assoc = true);
-        $this->curl->setHeader('Content-Type', 'application/json');
+        $this->curl->setHeader('Content-Type', 'application/json; charset=utf-8');
 
     }
 
