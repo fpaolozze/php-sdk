@@ -1,5 +1,5 @@
 <?php
-namespace Paggi;
+namespace Paggi\model;
 
 class Address implements \JsonSerializable {
 

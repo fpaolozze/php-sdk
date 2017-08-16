@@ -1,5 +1,5 @@
-
 <?php
+
 namespace Paggi;
 
 class GeneralException extends Exception

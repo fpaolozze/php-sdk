@@ -5,8 +5,8 @@ namespace Paggi;
 class Charges
 {
 
-  use find {
-    find::__construct as private __findConstruct;
+  use findAll {
+    findAll::__construct as private __findConstruct;
   }
   use insert{
    insert::create as private __insertConstruct;

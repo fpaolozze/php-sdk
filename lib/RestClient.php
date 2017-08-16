@@ -4,12 +4,12 @@ namespace Paggi;
 
 require 'vendor/autoload.php';
 
+
 use \Curl\Curl;
-use \Paggi\Paggi;
-use \Paggi\PaggiException;
 
 trait findById
 {
+
     private $rest;
     private $curl;
     private $class;
@@ -151,9 +151,7 @@ class RestClient
     private $baseStaging = "https://staging-online.paggi.com/api/v4/";
     private $baseProd = "https://online.paggi.com/api/v4/";
     private $endPoint;
-
-    private static $instance;
-
+    
     public function __construct()
     {
         $token = Paggi::getToken();
@@ -166,14 +164,6 @@ class RestClient
         $this->curl->setHeader('Content-Type', 'application/json; charset=utf-8');
 
     }
-
-    /*static public function getInstance()
-    {
-        if (!(self::$instance instanceof self)) {
-            self::$instance = new self;
-        }
-        return $instance;
-    }*/
 
     private function getEnviroment($isStaging)
     {

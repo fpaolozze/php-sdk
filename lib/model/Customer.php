@@ -1,5 +1,6 @@
 <?php
 
+namespace Paggi\model;
 
 class Customer implements \JsonSerializable
 {

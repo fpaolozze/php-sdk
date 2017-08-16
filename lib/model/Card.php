@@ -1,6 +1,6 @@
 <?php
 
-namespace Paggi;
+namespace Paggi\model;
 
 class Card implements \JsonSerializable
 {

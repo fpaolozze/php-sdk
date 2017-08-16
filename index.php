@@ -4,8 +4,8 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Paggi\Paggi;
 use Paggi\Cards;
-use Paggi\Card;
-use Paggi\Address;
+use Paggi\model\Card;
+use Paggi\model\Address;
 
 $dev_token = "B31DCE74-E768-43ED-86DA-85501612548F";
 $staging_token = "d3606313-bc7e-428d-8254-ec83853bbd72";
@@ -51,6 +51,7 @@ echo $resulFindAllCards = $cards->findAll();
 //$response = $charges->find();
 
 //echo($response);
+
 
 
 ?>
