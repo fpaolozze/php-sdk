@@ -99,11 +99,11 @@ trait update
 
     public function update($id, $params)
     {
-        $this->curl->put($this->rest->getEndpoint($this->class) . "/" . $id, $params);
+        $this->curl->put($this->rest->getEndpoint($this->class) . "/" . $id, json_encode($params));
         if($this->curl->error){
             print_r('Error: ' . $this->curl->errorCode . ': ' . $this->curl->errorMessage . "\n");
         }else{
-            return $this->curl->response;
+            return json_encode($this->curl->response);
         }
     }
 }
@@ -151,7 +151,7 @@ class RestClient
     private $baseStaging = "https://staging-online.paggi.com/api/v4/";
     private $baseProd = "https://online.paggi.com/api/v4/";
     private $endPoint;
-    
+
     public function __construct()
     {
         $token = Paggi::getToken();
