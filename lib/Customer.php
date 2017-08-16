@@ -10,7 +10,7 @@ class Customer implements \JsonSerializable
     private $phone;
     private $description;
     private $metadata;
-    private $address; //obje
+    private $address;
     private $card;
 
     public function jsonSerialize()
@@ -144,7 +144,9 @@ class Customer implements \JsonSerializable
     public function setCard($card)
     {
         $this->card = $card;
-    } //obje
+    }
+
+
 }
 
 ?>

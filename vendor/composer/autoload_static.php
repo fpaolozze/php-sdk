@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInitcad8efd584ac2297f03ebb9b72150c7a
 {
     public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'Paggi\\' => 6,
+        ),
         'C' => 
         array (
             'Curl\\' => 5,
@@ -14,6 +18,10 @@ class ComposerStaticInitcad8efd584ac2297f03ebb9b72150c7a
     );
 
     public static $prefixDirsPsr4 = array (
+        'Paggi\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/lib',
+        ),
         'Curl\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-curl-class/php-curl-class/src/Curl',
