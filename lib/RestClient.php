@@ -28,13 +28,13 @@ trait findById
         if ($this->curl->error) {
             print_r('Error: ' . $this->curl->errorCode . ': ' . $this->curl->errorMessage . "\n");
         } else {
-            return $this->curl->response;
+            return json_encode($this->curl->response);
         }
     }
 
 }
 
-trait find
+trait findAll
 {
     private $rest;
     private $curl;
@@ -47,7 +47,7 @@ trait find
         $this->class = Util::getClass($this)->getShortName();
     }
 
-    public function find()
+    public function findAll()
     {
         $this->curl->get($this->rest->getEndpoint($this->class));
         if ($this->curl->error) {
@@ -74,13 +74,12 @@ trait insert
 
     public function create($param)
     {
-        print_r($param);
         $this->curl->post($this->rest->getEndpoint($this->class), json_encode($param));
 
         if ($this->curl->error) {
             print_r('Error: ' . $this->curl->errorCode . ': ' . $this->curl->errorMessage . "\n");
         } else {
-            return $this->curl->response;
+            return json_encode($this->curl->response,true);
         }
     }
 }
@@ -109,6 +108,7 @@ trait update
     }
 }
 
+
 trait delete
 {
     private $rest;
@@ -124,7 +124,12 @@ trait delete
 
     public function delete($id)
     {
-        //$this->curl->delete()
+        $this->curl->delete($this->rest->getEndpoint($this->class)."/".$id);
+        if($this->curl->error){
+            Util::getError($this->curl);
+        }else{
+            return json_encode($this->curl->response);
+        }
     }
 }
 
@@ -132,6 +137,10 @@ class Util{
 
     static public function getClass($class){
         return new \ReflectionObject($class);
+    }
+
+    static public function getError($curl){
+        print_r('Error: ' . $curl->errorCode . ': ' . $curl->errorMessage . "\n");
     }
 }
 
