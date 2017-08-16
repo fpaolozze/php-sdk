@@ -3,7 +3,6 @@
 namespace Paggi;
 
 include 'lib/RestClient.php';
-use Paggi\RestClient;
 
 /**
  *
