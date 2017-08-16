@@ -6,6 +6,9 @@ use Paggi\Paggi;
 use Paggi\Cards;
 use Paggi\model\Card;
 use Paggi\model\Address;
+use Paggi\model\Customer;
+use Paggi\Customers;
+
 
 $dev_token = "B31DCE74-E768-43ED-86DA-85501612548F";
 $staging_token = "d3606313-bc7e-428d-8254-ec83853bbd72";
@@ -41,7 +44,7 @@ $cardId = "card_79ca5b97-3d40-42d6-ae85-21fa26e737e2"; //DevToken
 //$cardIdStaging = "card_6d502929-c214-4c3f-8e4d-191bd42edafa"; //DevStaging
 
 //echo $resulCreateCard = $cards->create($card);
-echo $resulFindAllCards = $cards->findAll();
+//echo $resulFindAllCards = $cards->findAll();
 //echo $resulFindCardById = $cards->findById($cardId);
 //echo $resulDeleteCard = $cards->delete($cardId);
 
@@ -50,7 +53,20 @@ echo $resulFindAllCards = $cards->findAll();
 //$charges->findById("sdsd");
 //$response = $charges->find();
 
-//echo($response);
+$customer = new Customer();
+
+$customer->setName("Rafael");
+$customer->setEmail("rafael@gmail");
+$customer->setDocument("12345678910");
+$customer->setPhone("11988236417");
+$customer->setAddress($address);
+$customer->setCard($card);
+
+$customers = new Customers();
+//echo $customer->findById("customer_7241f2c6-d8d7-4648-9843-e494c1ac881b");
+//echo $customer->findAll();
+//echo $customer->update("customer_7241f2c6-d8d7-4648-9843-e494c1ac881b",$customer);
+//echo $customers->create($customer);
 
 
 
