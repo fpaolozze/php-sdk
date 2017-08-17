@@ -66,7 +66,7 @@ $customer->setCard($card);*/
 $customers = new Customers();
 $response = $customers->findById("customer_7241f2c6-d8d7-4648-9843-e494c1ac881b");
 
-print_r($response);
+print_r($response->name);
 
 //echo $customer->findAll();
 //echo $customer->update("customer_7241f2c6-d8d7-4648-9843-e494c1ac881b",$customer);

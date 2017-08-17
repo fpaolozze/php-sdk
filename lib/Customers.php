@@ -16,7 +16,7 @@ class Customers
 
     use findAll, findById, insert, update {
         findAll::__construct as private __findConstruct;
-        findById::__construct as private __findByIdConstruct;
+        //findById::__construct as private __findByIdConstruct;
         insert::__construct as private __insertConstruct;
         update::__construct as private __updateConstruct;
     }
@@ -24,9 +24,17 @@ class Customers
     public function __construct()
     {
         $this->__findConstruct();
-        $this->__findByIdConstruct();
+        //$this->__findByIdConstruct();
         $this->__insertConstruct();
         $this->__updateConstruct();
+    }
+
+    public function _set($properties){
+        foreach($properties as $key => $value){
+                if (array_key_exists($key, self::getClass($this)->getDefaultProperties())) {
+                    $this->{$key} = $value;
+            }
+        }
     }
 }
 

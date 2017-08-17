@@ -17,15 +17,20 @@ trait findById
     private $curl;
     private $class;
 
-    public function __construct()
+/*    public function __construct()
     {
         $this->rest = new RestClient();
         $this->curl = $this->rest->getCurl();
         $this->class = Util::getClass($this)->getShortName();
-    }
+    }*/
 
     public function findById($id)
     {
+
+        $this->rest = new RestClient();
+        $this->curl = $this->rest->getCurl();
+        $this->class = Util::getClass($this)->getShortName();
+
         $this->curl->get($this->rest->getEndpoint($this->class) . "/" . $id);
 
         if ($this->curl->error) {
@@ -156,31 +161,18 @@ trait Util
         print_r('Error: ' . $curl->errorCode . ': ' . $curl->errorMessage . "\n");
     }
 
-    public function createObject($class, $param)
-    {
-        $fields = self::getClass($class)->getDefaultProperties();
-        foreach (json_decode($param) as $key => $value) {
-            //echo "{$key} => {$value} ";
-            if (array_key_exists($key, $fields)) {
-                //print_r($param[$key]);pa
-                $parametro = array("{$key}" => "{$value}");
-            }
-        }
-        //print_r($parametro);
-        //$ob = new \ReflectionClass($class);
-        //$instance = $ob->newInstance($parametro);
-        return new Customer($param);
-    }
-
     public function createObjectResponse($class, $param)
     {
         $className = self::getClass($class)->getShortName();
-        if(strcmp($className,"Customers")==0){
-            $mapper = new JsonMapper();
-            $contactObject = $mapper->map(
-                $param,
-                new Customers()
-            );
+        switch ($className){
+            case "Customers":
+                $customers = new Customers();
+                $customers->_set($param);
+                return $customers;
+            case "Cards":
+                $cards = new Cards();
+                $cards->_set($param);
+                return $cards;
         }
     }
 }
