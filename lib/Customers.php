@@ -5,6 +5,15 @@ namespace Paggi;
 class Customers
 {
 
+    public $name;
+    public $email;
+    public $document;
+    public $phone;
+    public $description;
+    public $metadata;
+    public $address;
+    public $card;
+
     use findAll, findById, insert, update {
         findAll::__construct as private __findConstruct;
         findById::__construct as private __findByIdConstruct;
