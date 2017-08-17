@@ -5,19 +5,40 @@ namespace Paggi;
 class Bank_accounts
 {
 
-    use insert, findAll, findById, update {
-        insert::__construct as private __insertConstruct;
-        findAll::__construct as private __findAllConstruct;
-        findById::__construct as private __findByIdConstruct;
-        update::__construct as private __updateConstruct;
-    }
+    public $total;
+    public $result = array();
+
+
+    public $id;
+    public $customer_id;
+    public $bank;
+    public $number;
+    public $digit;
+    public $branch;
+    public $branch_digit;
+
+    use insert, findAll, findById, update;
 
     public function __construct()
     {
-        $this->__insertConstruct();
-        $this->__findAllConstruct();
-        $this->__findByIdConstruct();
-        $this->__updateConstruct();
+    }
+
+
+    public function _set($properties){
+        $classe = new \ReflectionObject($this);
+        foreach($properties as $key => $value){
+            if (array_key_exists($key, $classe->getDefaultProperties())) {
+                $this->{$key} = $value;
+            }
+        }
     }
 }
+
+class Bank{
+
+    public $id;
+    public $name;
+}
+
+
 ?>
