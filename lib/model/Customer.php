@@ -5,14 +5,15 @@ namespace Paggi\model;
 class Customer implements \JsonSerializable
 {
 
-    private $name;
-    private $email;
-    private $document;
-    private $phone;
-    private $description;
-    private $metadata;
-    private $address;
-    private $card;
+    public $name;
+    public $email;
+    public $document;
+    public $phone;
+    public $description;
+    public $metadata;
+    public $address;
+    public $card;
+
 
     public function jsonSerialize()
     {
