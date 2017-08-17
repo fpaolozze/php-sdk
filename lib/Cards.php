@@ -5,19 +5,48 @@ namespace Paggi;
 class Cards
 {
 
+    public $year;
+    public $name;
+    public $month;
+    public $metadata;
+    public $last4;
+    public $id;
+    public $cvc_check;
+    public $acquirer_code;
+    public $acquirer_message;
+    public $customer_id;
+    public $country;
+    public $card_alias;
+    public $brand;
+    public $bin;
+    public $address;
+
+
     use findAll, findById, insert, delete {
-        findAll::__construct as private __findConstruct;
-        //findById::__construct as private __findByIdConstruct;
-        insert::__construct as private __insertConstruct;
-        delete::__construct as private __deleteConstruct;
     }
 
     public function __construct()
     {
-        $this->__findConstruct();
-        //$this->__findByIdConstruct();
-        $this->__insertConstruct();
-        $this->__deleteConstruct();
+
+    }
+
+    public function _set($properties){
+        $classe = new \ReflectionObject($this);
+        foreach($properties as $key => $value){
+            if (array_key_exists($key, $classe->getDefaultProperties())) {
+                $this->{$key} = $value;
+            }
+        }
+    }
+
+    public function _setArray($properties){
+        $classe = new \ReflectionObject($this);
+        foreach ($properties as $key => $value)
+        {
+            //$this->{$key} = $value;
+            print_r("<p>".$value);
+
+        }
     }
 
 }
