@@ -37,7 +37,6 @@ trait findAll
         $rest = new RestClient();
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
-
         $curl->get($rest->getEndpoint($class->getShortName()));
         if ($curl->error) {
             return Util::getError($curl);
@@ -49,18 +48,24 @@ trait findAll
 
 trait insert
 {
-    public function create($param)
+    public function create($params)
     {
         $rest = new RestClient();
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
 
-        $curl->post($rest->getEndpoint($class->getShortName()), json_encode($param));
+        $class_var = get_class_vars(get_class($this));
+
+        /*foreach ($class_var as $name => $value) {
+            echo "$name : $value\n";
+        }*/
+
+        $curl->post($rest->getEndpoint($class->getShortName()), json_encode($params));
 
         if ($curl->error) {
             return Util::getError($curl);
         } else {
-            return Util::createObjectResponse($this, $curl->response);
+            return Util::manageResponse($this, $curl);
         }
     }
 }
@@ -79,6 +84,7 @@ trait update
             return Util::manageResponse($this, $curl);
         }
     }
+
 }
 
 
@@ -99,11 +105,47 @@ trait delete
     }
 }
 
+trait charge
+{
+
+    private $endPoint;
+    private $curl;
+
+    public function __construct()
+    {
+        $rest = new RestClient();
+        $this->curl = $rest->getCurl();
+        $class = new \ReflectionObject($this);
+        $this->endPoint = $rest->getEndpoint($class->getShortName());
+    }
+
+    //Charge an user using user's default card
+    public function charge()
+    {
+        $class_var = get_class_vars(get_class($this));
+        $this->curl->post($this->endPoint, json_encode($class_var));
+        if($this->curl->error){
+            return Util::getError($this->curl);
+        }else{
+            return Util::manageResponse($this,$this->curl);
+        }
+    }
+
+    public function cancel($chargeId){
+        $this->curl->put($this->endPoint."/".$chargeId."/cancel");
+        if($this->curl->error){
+            return Util::getError($this->curl);
+        }else{
+            return Util::manageResponse($this,$this->curl);
+        }
+    }
+}
+
 trait Util
 {/**/
     static public function getError($curl)
     {
-        "Error: ' . $curl->errorCode . ': ' . $curl->errorMessage";
+        return array("Error code" => $curl->errorCode, "Error message" => $curl->errorMessage);
     }
 
     public function createObjectResponse($class, $response)
@@ -115,14 +157,18 @@ trait Util
                 $customers->_set($response);
                 return $customers;
             case "Cards":
-                $cards = new Cards();
-                $cards->_set($response);
-                return $cards;
+                //return new Cards($response);
+                return $this->buildCards($response);
             case "Bank_accounts":
-                $bank_account = new Bank_accounts();
-                $bank_account->_set($response);
-                return $bank_account;
+                return new Bank_accounts($response);
+            case "Charges":
+                return new Charges($response);
         }
+    }
+
+    protected function buildCards($parameters){
+        $r = new \ReflectionClass("Cards");
+        return $instance = $r->newInstanceArgs($parameters);
     }
 
     static public function manageResponse($class, $curl)
@@ -131,8 +177,9 @@ trait Util
             case 200:
                 return Util::createObjectResponse($class, $curl->response);
             case 401:
-                return $curl->errorMessage;
+                return $curl->httpStatusCode;
             default:
+                new \Exception("ddddd");
                 return $curl->httpStatusCode;
         }
     }
@@ -177,7 +224,6 @@ class RestClient
     {
         return $this->curl;
     }
+
 }
-
-
 ?>

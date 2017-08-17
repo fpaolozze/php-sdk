@@ -4,6 +4,7 @@ namespace Paggi;
 
 class Cards
 {
+    use ModelBuild;
 
     public $year;
     public $name;
@@ -25,29 +26,21 @@ class Cards
     use findAll, findById, insert, delete {
     }
 
-    public function __construct()
+    public function __construct($parameters = [])
     {
-
+        if(!empty($parameters)){
+            $this->build($parameters);
+        }
     }
 
-    public function _set($properties){
+    /*public function _set($properties){
         $classe = new \ReflectionObject($this);
         foreach($properties as $key => $value){
             if (array_key_exists($key, $classe->getDefaultProperties())) {
                 $this->{$key} = $value;
             }
         }
-    }
-
-    public function _setArray($properties){
-        $classe = new \ReflectionObject($this);
-        foreach ($properties as $key => $value)
-        {
-            //$this->{$key} = $value;
-            print_r("<p>".$value);
-
-        }
-    }
+    }*/
 
 }
 ?>
