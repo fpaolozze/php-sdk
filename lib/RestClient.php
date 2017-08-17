@@ -116,7 +116,7 @@ trait Util
                 return $customers;
             case "Cards":
                 $cards = new Cards();
-                $cards->_setArray($response);
+                $cards->_set($response);
                 return $cards;
             case "Bank_accounts":
                 $bank_account = new Bank_accounts();

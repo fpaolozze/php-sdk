@@ -8,7 +8,6 @@ class Bank_accounts
     public $total;
     public $result = array();
 
-
     public $id;
     public $customer_id;
     public $bank;
