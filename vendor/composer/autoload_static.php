@@ -28,11 +28,23 @@ class ComposerStaticInitcad8efd584ac2297f03ebb9b72150c7a
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'J' => 
+        array (
+            'JsonMapper' => 
+            array (
+                0 => __DIR__ . '/../..' . '/lib',
+                1 => __DIR__ . '/..' . '/netresearch/jsonmapper/src',
+            ),
+        ),
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitcad8efd584ac2297f03ebb9b72150c7a::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitcad8efd584ac2297f03ebb9b72150c7a::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitcad8efd584ac2297f03ebb9b72150c7a::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }
