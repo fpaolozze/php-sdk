@@ -11,39 +11,20 @@ use Paggi\model\Customer;
 
 trait findById
 {
-    use Util;
-
-    private $rest;
-    private $curl;
-    private $class;
-
-/*    public function __construct()
-    {
-        $this->rest = new RestClient();
-        $this->curl = $this->rest->getCurl();
-        $this->class = Util::getClass($this)->getShortName();
-    }*/
 
     public function findById($id)
     {
 
-        $this->rest = new RestClient();
-        $this->curl = $this->rest->getCurl();
-        $this->class = Util::getClass($this)->getShortName();
+        $rest = new RestClient();
+        $curl = $rest->getCurl();
+        $class = new \ReflectionObject($this);
 
-        $this->curl->get($this->rest->getEndpoint($this->class) . "/" . $id);
+        $curl->get($rest->getEndpoint($class->getShortName()) . "/" . $id);
 
-        if ($this->curl->error) {
-            Util::getError($this->curl);
+        if ($curl->error) {
+            return Util::getError($curl);
         } else {
-            switch ($this->curl->httpStatusCode) {
-                case 200:
-                    return Util::createObjectResponse($this, $this->curl->response);
-                case 401:
-                    return $this->curl->errorMessage;
-                default:
-                    $this->curl->httpStatusCode;
-            }
+            return Util::manageResponse($this, $curl);
         }
     }
 
@@ -51,74 +32,51 @@ trait findById
 
 trait findAll
 {
-    private $rest;
-    private $curl;
-    private $class;
-
-    public function __construct()
-    {
-        $this->rest = new RestClient();
-        $this->curl = $this->rest->getCurl();
-        $this->class = Util::getClass($this)->getShortName();
-    }
-
     public function findAll()
     {
-        $this->curl->get($this->rest->getEndpoint($this->class));
-        if ($this->curl->error) {
-            Util::getError($this->curl);
+        $rest = new RestClient();
+        $curl = $rest->getCurl();
+        $class = new \ReflectionObject($this);
+
+        $curl->get($rest->getEndpoint($class->getShortName()));
+        if ($curl->error) {
+            return Util::getError($curl);
         } else {
-            return json_encode($this->curl->response);
+            return Util::createObjectResponse($this, $curl->response);
         }
     }
 }
 
 trait insert
 {
-
-    private $rest;
-    private $curl;
-    private $class;
-
-    public function __construct()
-    {
-        $this->rest = new RestClient();
-        $this->curl = $this->rest->getCurl();
-        $this->class = Util::getClass($this)->getShortName();
-    }
-
     public function create($param)
     {
-        $this->curl->post($this->rest->getEndpoint($this->class), json_encode($param));
+        $rest = new RestClient();
+        $curl = $rest->getCurl();
+        $class = new \ReflectionObject($this);
 
-        if ($this->curl->error) {
-            Util::getError($this->curl);
+        $curl->post($rest->getEndpoint($class->getShortName()), json_encode($param));
+
+        if ($curl->error) {
+            return Util::getError($curl);
         } else {
-            return json_encode($this->curl->response, true);
+            return Util::createObjectResponse($this, $curl->response);
         }
     }
 }
 
 trait update
 {
-    private $rest;
-    private $curl;
-    private $class;
-
-    public function __construct()
-    {
-        $this->rest = new RestClient();
-        $this->curl = $this->rest->getCurl();
-        $this->class = Util::getClass($this)->getShortName();
-    }
-
     public function update($id, $params)
     {
-        $this->curl->put($this->rest->getEndpoint($this->class) . "/" . $id, json_encode($params));
-        if ($this->curl->error) {
-            Util::getError($this->curl);
+        $rest = new RestClient();
+        $curl = $rest->getCurl();
+        $class = new \ReflectionObject($this);
+        $curl->put($rest->getEndpoint($class->getShortName()) . "/" . $id, json_encode($params));
+        if ($curl->error) {
+            return Util::getError($curl);
         } else {
-            return json_encode($this->curl->response);
+            return Util::manageResponse($this, $curl);
         }
     }
 }
@@ -126,53 +84,56 @@ trait update
 
 trait delete
 {
-    private $rest;
-    private $curl;
-    private $class;
-
-    public function __construct()
-    {
-        $this->rest = new RestClient();
-        $this->curl = $this->rest->getCurl();
-        $this->class = Util::getClass($this)->getShortName();
-    }
-
     public function delete($id)
     {
-        $this->curl->delete($this->rest->getEndpoint($this->class) . "/" . $id);
-        if ($this->curl->error) {
-            Util::getError($this->curl);
+        $rest = new RestClient();
+        $curl = $rest->getCurl();
+        $class = new \ReflectionObject($this);
+
+        $curl->delete($rest->getEndpoint($class->getShortName()) . "/" . $id);
+        if ($curl->error) {
+            return Util::getError($curl);
         } else {
-            return json_encode($this->curl->response);
+            return Util::manageResponse($this, $curl);
         }
     }
 }
 
 trait Util
-{
-
-    static public function getClass($class)
-    {
-        return new \ReflectionObject($class);
-    }
-
+{/**/
     static public function getError($curl)
     {
-        print_r('Error: ' . $curl->errorCode . ': ' . $curl->errorMessage . "\n");
+        "Error: ' . $curl->errorCode . ': ' . $curl->errorMessage";
     }
 
-    public function createObjectResponse($class, $param)
+    public function createObjectResponse($class, $response)
     {
-        $className = self::getClass($class)->getShortName();
-        switch ($className){
+        $className = new \ReflectionObject($class);
+        switch ($className->getShortName()) {
             case "Customers":
                 $customers = new Customers();
-                $customers->_set($param);
+                $customers->_set($response);
                 return $customers;
             case "Cards":
                 $cards = new Cards();
-                $cards->_set($param);
+                $cards->_setArray($response);
                 return $cards;
+            case "Bank_accounts":
+                $bank_account = new Bank_accounts();
+                $bank_account->_set($response);
+                return $bank_account;
+        }
+    }
+
+    static public function manageResponse($class, $curl)
+    {
+        switch ($curl->httpStatusCode) {
+            case 200:
+                return Util::createObjectResponse($class, $curl->response);
+            case 401:
+                return $curl->errorMessage;
+            default:
+                return $curl->httpStatusCode;
         }
     }
 }
