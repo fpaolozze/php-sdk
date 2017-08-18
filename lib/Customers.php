@@ -20,24 +20,27 @@ class Customers
      * Store new clients with or without card ad address data
      * @param $parameters Customer data
      */
-    public function create($parameters){
-
+    public function create($parameters)
+    {
+        return $this->_create($this->restClient, $parameters);
     }
 
     /**
      * List all customers
      * @param array $queryParams Use it for pagination
      */
-    public function findAll($queryParams = []){
-
+    public function findAll($queryParams = [])
+    {
+        return $this->_findAll($this->restClient, $queryParams);
     }
 
     /**
      * Get all customers
      * @param $customerId Customer id
      */
-    public function findById($customerId){
-
+    public function findById($customerId)
+    {
+        return $this->_findById($this->restClient, $customerId);
     }
 
     /**
@@ -45,8 +48,9 @@ class Customers
      * @param $customerId Customer id
      * @param array $parameters body params for update
      */
-    public function update($customerId, $parameters = []){
-
+    public function update($customerId, $parameters = [])
+    {
+        return $this->_update($this->restClient, $customerId, $parameters);
     }
 }
 
