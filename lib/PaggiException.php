@@ -1,16 +1,11 @@
 <?php
 namespace Paggi;
 
-class PaggiException extends GeneralException
+class PaggiException extends \Exception
 {
-    private $message;
-    private $code;
-    private $curl;
-
-    public function __construct($message,$code)
+    public function __construct($message)
     {
-        //parent::__construct($curl->errorMessage,$curl->errorCode);
-        parent::__construct($message, $code);
+        parent::__construct(json_encode($message),0);
     }
 
 }
