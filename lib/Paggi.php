@@ -17,7 +17,6 @@ class Paggi
     private $cards;
     protected $bank_accounts;
 
-
     public function __construct($token, $staging = false)
     {
         self::$isStaging = $staging;
@@ -36,6 +35,10 @@ class Paggi
         return self::$isStaging;
     }
 
+    /**
+     * Instance a card if necessary and return it
+     * @return Card object
+     */
     public function cards(){
         if(!$this->cards instanceof Cards){
             return $this->cards = new Cards($this->restClient);
