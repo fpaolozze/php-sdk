@@ -4,18 +4,13 @@ namespace Paggi;
 
 require 'vendor/autoload.php';
 
-
-use JsonMapper;
 use \Curl\Curl;
-use Paggi\model\Customer;
 
 trait findById
 {
 
-    public function findById($id)
+    protected function _findById($rest,$id)
     {
-
-        $rest = new RestClient();
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
 
@@ -32,36 +27,27 @@ trait findById
 
 trait findAll
 {
-    public function findAll()
+    public function _findAll($rest, $query_params)
     {
-        $rest = new RestClient();
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
-        $curl->get($rest->getEndpoint($class->getShortName()));
+        $curl->get($rest->getEndpoint($class->getShortName()),$query_params);
         if ($curl->error) {
             return Util::getError($curl);
         } else {
-            return Util::createObjectResponse($this, $curl->response);
+            return Util::manageResponse($this,$curl);
         }
     }
 }
 
 trait insert
 {
-    public function create($params)
+    protected function _create($rest,$params)
     {
-        $rest = new RestClient();
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
 
-        $class_var = get_class_vars(get_class($this));
-
-        /*foreach ($class_var as $name => $value) {
-            echo "$name : $value\n";
-        }*/
-
         $curl->post($rest->getEndpoint($class->getShortName()), json_encode($params));
-
         if ($curl->error) {
             return Util::getError($curl);
         } else {
@@ -72,9 +58,8 @@ trait insert
 
 trait update
 {
-    public function update($id, $params)
+    public function _update($rest,$id, $params)
     {
-        $rest = new RestClient();
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
         $curl->put($rest->getEndpoint($class->getShortName()) . "/" . $id, json_encode($params));
@@ -90,9 +75,8 @@ trait update
 
 trait delete
 {
-    public function delete($id)
+    public function _delete($rest,$id)
     {
-        $rest = new RestClient();
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
 
@@ -107,36 +91,29 @@ trait delete
 
 trait charge
 {
-
-    private $endPoint;
-    private $curl;
-
-    public function __construct()
-    {
-        $rest = new RestClient();
-        $this->curl = $rest->getCurl();
-        $class = new \ReflectionObject($this);
-        $this->endPoint = $rest->getEndpoint($class->getShortName());
-    }
-
     //Charge an user using user's default card
-    public function charge()
+    public function _charge($rest,$params)
     {
-        $class_var = get_class_vars(get_class($this));
-        $this->curl->post($this->endPoint, json_encode($class_var));
-        if($this->curl->error){
-            return Util::getError($this->curl);
+        $curl = $rest->getCurl();
+        $class = new \ReflectionObject($this);
+
+        $curl->post($rest->getEndpoint($class->getShortName(), json_encode($params)));
+        if($curl->error){
+            return Util::getError($curl);
         }else{
-            return Util::manageResponse($this,$this->curl);
+            return Util::manageResponse($this,$curl);
         }
     }
 
-    public function cancel($chargeId){
-        $this->curl->put($this->endPoint."/".$chargeId."/cancel");
-        if($this->curl->error){
-            return Util::getError($this->curl);
+    public function _cancel($rest,$chargeId){
+        $curl = $rest->getCurl();
+        $class = new \ReflectionObject($this);
+
+        $curl->put($rest->getEndpoint($class->getShortName()."/".$chargeId."/cancel"));
+        if($curl->error){
+            return Util::getError($curl);
         }else{
-            return Util::manageResponse($this,$this->curl);
+            return Util::manageResponse($this,$curl);
         }
     }
 }
@@ -175,11 +152,12 @@ trait Util
     {
         switch ($curl->httpStatusCode) {
             case 200:
-                return Util::createObjectResponse($class, $curl->response);
+                return $curl->response;
             case 401:
-                return $curl->httpStatusCode;
+                return $curl->response;
+            case 410:
+                return "Cartao ja foi deletado anteriormente";
             default:
-                new \Exception("ddddd");
                 return $curl->httpStatusCode;
         }
     }
@@ -203,6 +181,7 @@ class RestClient
         $this->curl->setBasicAuthentication($token, $token);
         $this->curl->setDefaultJsonDecoder($assoc = true);
         $this->curl->setHeader('Content-Type', 'application/json; charset=utf-8');
+        //$this->curl->setDefaultTimeout();//TIMEOUT?
 
     }
 
