@@ -1,13 +1,15 @@
 <?php
 
-namespace Paggi;
+namespace Paggi\model;
+
+use Paggi\ModelBuild;
 
 class Bank implements \JsonSerializable {
 
     use ModelBuild;
 
-    public $id;
     public $name;
+    public $id;
 
     public function __construct($response)
     {
