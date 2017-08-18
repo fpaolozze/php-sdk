@@ -6,7 +6,7 @@ require 'vendor/autoload.php';
 
 use \Curl\Curl;
 use Paggi\model\Card;
-
+use Paggi\model\Bank;
 trait findById
 {
     protected function _findById($rest,$id)
@@ -15,7 +15,7 @@ trait findById
         $class = new \ReflectionObject($this);
 
         $curl->get($rest->getEndpoint($class->getShortName()) . "/" . $id);
-        return $this->manageResponse($curl);
+        return $this->manageResponse($curl,$class);
     }
 
 }
@@ -28,7 +28,7 @@ trait findAll
         $class = new \ReflectionObject($this);
         $curl->get($rest->getEndpoint($class->getShortName()),$query_params);
 
-        return $this->manageResponse($curl);
+        return $this->manageResponse($curl,$class);
     }
 }
 
@@ -41,7 +41,7 @@ trait insert
 
         $curl->post($rest->getEndpoint($class->getShortName()), json_encode($params));
 
-        return $this->manageResponse($curl);
+        return $this->manageResponse($curl,$class);
     }
 }
 
@@ -53,7 +53,7 @@ trait update
         $class = new \ReflectionObject($this);
         $curl->put($rest->getEndpoint($class->getShortName()) . "/" . $id, json_encode($params));
 
-        return $this->manageResponse($curl);
+        return $this->manageResponse($curl,$class);
     }
 
 }
@@ -68,7 +68,7 @@ trait delete
 
         $curl->delete($rest->getEndpoint($class->getShortName()) . "/" . $id);
 
-        return $this->manageResponse($curl);
+        return $this->manageResponse($curl,$class);
     }
 }
 
@@ -104,13 +104,13 @@ trait charge
 trait Util
 {/**/
 
-    protected function manageResponse($responseCurl){
+    protected function manageResponse($responseCurl,$class = null){
         if($responseCurl->error){
             throw new PaggiException(new PaggiResponse($this->_getError($responseCurl)));
         }else{
             switch ($responseCurl->httpStatusCode){
                 case 200:
-                    return new Card($responseCurl->response);
+                    return $this->getResourceObject($class, $responseCurl);
                 default:
                     throw new PaggiException($this->__getError($responseCurl));
             }
@@ -122,6 +122,19 @@ trait Util
         $message =  json_decode($responseCurl->rawResponse)->error;
         $errors = array("code"=>"$responseCurl->httpStatusCode", "message"=>$message);
         return new PaggiResponse($errors);
+    }
+
+    protected function getResourceObject($class, $responseCurl){
+        switch ($class->getShortName()){
+            case "Cards":
+                return new Card($responseCurl->response);
+            case "Banks":
+                return new Bank($responseCurl->response);
+            case "Customers":
+                return new Customers($responseCurl->response);
+            default:
+                return "ERRO AO CRIAR OBJETO";
+        }
     }
 }
 
