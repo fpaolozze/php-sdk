@@ -5,22 +5,17 @@ namespace Paggi;
 require 'vendor/autoload.php';
 
 use \Curl\Curl;
+use Paggi\model\Card;
 
 trait findById
 {
-
     protected function _findById($rest,$id)
     {
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
 
         $curl->get($rest->getEndpoint($class->getShortName()) . "/" . $id);
-
-        if ($curl->error) {
-            return Util::getError($curl);
-        } else {
-            return $rest->manageResponse($this, $curl);
-        }
+        return $this->manageResponse($curl);
     }
 
 }
@@ -32,11 +27,8 @@ trait findAll
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
         $curl->get($rest->getEndpoint($class->getShortName()),$query_params);
-        if ($curl->error) {
-            return Util::getError($curl);
-        } else {
-            return $rest->manageResponse($this,$curl);
-        }
+
+        return $this->manageResponse($curl);
     }
 }
 
@@ -48,11 +40,8 @@ trait insert
         $class = new \ReflectionObject($this);
 
         $curl->post($rest->getEndpoint($class->getShortName()), json_encode($params));
-        if ($curl->error) {
-            return Util::getError($curl);
-        } else {
-            return $rest->manageResponse($this, $curl);
-        }
+
+        return $this->manageResponse($curl);
     }
 }
 
@@ -63,11 +52,8 @@ trait update
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
         $curl->put($rest->getEndpoint($class->getShortName()) . "/" . $id, json_encode($params));
-        if ($curl->error) {
-            return Util::getError($curl);
-        } else {
-            return $rest->manageResponse($this, $curl);
-        }
+
+        return $this->manageResponse($curl);
     }
 
 }
@@ -80,16 +66,9 @@ trait delete
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
 
-        $result = $curl->delete($rest->getEndpoint($class->getShortName()) . "/" . $id);
+        $curl->delete($rest->getEndpoint($class->getShortName()) . "/" . $id);
 
-        return $curl;
-
-        /*if ($curl->error) {
-            return Util::getError($curl);
-            //return error
-        } else {
-            return $rest->manageResponse($this, $curl);
-        }*/
+        return $this->manageResponse($curl);
     }
 }
 
@@ -103,7 +82,7 @@ trait charge
 
         $curl->post($rest->getEndpoint($class->getShortName(), json_encode($params)));
         if($curl->error){
-            return Util::getError($curl);
+            return array("Error code" => $curl->errorCode, "Error message" => $curl->errorMessage);
         }else{
             return $rest->manageResponse($this,$curl);
         }
@@ -115,7 +94,7 @@ trait charge
 
         $curl->put($rest->getEndpoint($class->getShortName()."/".$chargeId."/cancel"));
         if($curl->error){
-            return Util::getError($curl);
+            return array("Error code" => $curl->errorCode, "Error message" => $curl->errorMessage);
         }else{
             return $rest->manageResponse($this,$curl);
         }
@@ -124,9 +103,18 @@ trait charge
 
 trait Util
 {/**/
-    static public function getError($curl)
-    {
-        return array("Error code" => $curl->errorCode, "Error message" => $curl->errorMessage);
+
+    protected function manageResponse($responseCurl){
+        if($responseCurl->error){
+            throw new PaggiException(new PaggiResponse($this->_getError($responseCurl)));
+        }else{
+            switch ($responseCurl->httpStatusCode){
+                case 200:
+                    return new Card($responseCurl->response);
+                default:
+                    throw new PaggiException($this->__getError($responseCurl));
+            }
+        }
     }
 
     protected function _getError($responseCurl)
@@ -179,21 +167,6 @@ class RestClient
     public function getCurl()
     {
         return $this->curl;
-    }
-
-    protected function manageResponse($class, $curl)
-    {
-        switch ($curl->httpStatusCode) {
-            case 200:
-                print_r("KAKAKAKA");
-                return $curl->response;
-            case 401:
-                return $curl->response;
-            case 410:
-                return array("message"=>"Cartao ja foi deletado anteriormente");
-            default:
-                return $curl->httpStatusCode;
-        }
     }
 }
 ?>
