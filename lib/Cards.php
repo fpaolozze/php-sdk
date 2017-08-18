@@ -2,45 +2,64 @@
 
 namespace Paggi;
 
+use Paggi\model\Card;
+
 class Cards
 {
-    use ModelBuild;
+    private $restClient;
 
-    public $year;
-    public $name;
-    public $month;
-    public $metadata;
-    public $last4;
-    public $id;
-    public $cvc_check;
-    public $acquirer_code;
-    public $acquirer_message;
-    public $customer_id;
-    public $country;
-    public $card_alias;
-    public $brand;
-    public $bin;
-    public $address;
+    use insert;
+    use findById;
+    use findAll;
+    use delete;
 
-
-    use findAll, findById, insert, delete {
-    }
-
-    public function __construct($parameters = [])
+    /**
+     * Cards constructor. Instance the RestClient object. The curl/restclient must be initilized on the constructor;
+     * @param $restClient Get from Paggi class
+     */
+    public function __construct($restClient)
     {
-        if(!empty($parameters)){
-            $this->build($parameters);
-        }
+        $this->restClient = $restClient;
     }
 
-    /*public function _set($properties){
-        $classe = new \ReflectionObject($this);
-        foreach($properties as $key => $value){
-            if (array_key_exists($key, $classe->getDefaultProperties())) {
-                $this->{$key} = $value;
-            }
-        }
-    }*/
+    /**
+     * Create a new card. You can store multiple cards for each customer, in order to charge the customer later.
+     * @param $params body params
+     * @return Card A card object
+     */
+    public function createCard($params)
+    {
+        $response = $this->_create($this->restClient,$params);
+        return new Card($response);
+    }
+
+    /** List all cards with pagination and creation date filter
+     * @param array $query_params query pagination and filter
+     * @return Card object
+     */
+    public function findAll($query_params = []){
+        $response = $this->_findAll($this->restClient, $query_params);
+        return new Card($response);
+    }
+
+    /**
+     * Delete a card
+     * @param $card_id The card id to remove
+     * @return Thee removed card object
+     */
+    public function delete($card_id){
+        $response = $this->_delete($this->restClient,$card_id);
+        return new Card($response);
+    }
+
+    /** Retrieves a card
+     * @param $card_id The card_id to find
+     * @return Card object
+     */
+    public function findById($card_id){
+        $response = $this->_findById($this->restClient,$card_id);
+        return new Card($response);
+    }
 
 }
 ?>
