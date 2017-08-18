@@ -8,9 +8,16 @@ use Paggi\PaggiException;
 
 class Cards
 {
-    private $restClient;
+    private $restClient; //RestClient
 
-    use Util;
+    use Util; //The methods uses methods from Util
+
+    /**
+     * Insert a new card
+     * Find a card by id
+     * Find all cards
+     * Delete a card
+     */
     use insert, findById,findAll, delete{
     }
 
