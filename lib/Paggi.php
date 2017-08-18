@@ -15,6 +15,9 @@ class Paggi
     private $restClient;
 
     private $cards;
+    private $banks;
+    private $customers;
+    private $charges;
     protected $bank_accounts;
 
     public function __construct($token, $staging = false)
@@ -54,9 +57,21 @@ class Paggi
         }
     }
 
+    public function banks(){
+        if(!$this->banks instanceof Banks){
+            return $this->banks = new Banks($this->restClient);
+        }
+    }
+
     public function bank_accounts(){
         if(!$this->bank_accounts instanceof Bank_accounts){
             return $this->bank_accounts = new Bank_accounts($this->restClient);
+        }
+    }
+
+    public function customers(){
+        if(!$this->customers instanceof  Customers){
+            return $this->customers = new Customers($this->restClient);
         }
     }
 
