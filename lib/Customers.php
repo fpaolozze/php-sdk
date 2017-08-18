@@ -4,29 +4,49 @@ namespace Paggi;
 
 class Customers
 {
-
-    public $name;
-    public $email;
-    public $document;
-    public $phone;
-    public $description;
-    public $metadata;
-    public $address;
-    public $card;
+    use Util;
 
     use findAll, findById, insert, update {
     }
 
-    public function __construct()
+    private $restClient;
+
+    public function __construct($restClient)
     {
+        $this->restClient = $restClient;
     }
 
-    public function _set($properties){
-        foreach($properties as $key => $value){
-                if (array_key_exists($key, self::getClass($this)->getDefaultProperties())) {
-                    $this->{$key} = $value;
-            }
-        }
+    /**
+     * Store new clients with or without card ad address data
+     * @param $parameters Customer data
+     */
+    public function create($parameters){
+
+    }
+
+    /**
+     * List all customers
+     * @param array $queryParams Use it for pagination
+     */
+    public function findAll($queryParams = []){
+
+    }
+
+    /**
+     * Get all customers
+     * @param $customerId Customer id
+     */
+    public function findById($customerId){
+
+    }
+
+    /**
+     * Update a customer
+     * @param $customerId Customer id
+     * @param array $parameters body params for update
+     */
+    public function update($customerId, $parameters = []){
+
     }
 }
 
