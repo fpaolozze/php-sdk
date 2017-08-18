@@ -19,7 +19,7 @@ trait findById
         if ($curl->error) {
             return Util::getError($curl);
         } else {
-            return Util::manageResponse($this, $curl);
+            return $rest->manageResponse($this, $curl);
         }
     }
 
@@ -35,7 +35,7 @@ trait findAll
         if ($curl->error) {
             return Util::getError($curl);
         } else {
-            return Util::manageResponse($this,$curl);
+            return $rest->manageResponse($this,$curl);
         }
     }
 }
@@ -51,7 +51,7 @@ trait insert
         if ($curl->error) {
             return Util::getError($curl);
         } else {
-            return Util::manageResponse($this, $curl);
+            return $rest->manageResponse($this, $curl);
         }
     }
 }
@@ -66,7 +66,7 @@ trait update
         if ($curl->error) {
             return Util::getError($curl);
         } else {
-            return Util::manageResponse($this, $curl);
+            return $rest->manageResponse($this, $curl);
         }
     }
 
@@ -80,12 +80,16 @@ trait delete
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
 
-        $curl->delete($rest->getEndpoint($class->getShortName()) . "/" . $id);
-        if ($curl->error) {
+        $result = $curl->delete($rest->getEndpoint($class->getShortName()) . "/" . $id);
+
+        return $curl;
+
+        /*if ($curl->error) {
             return Util::getError($curl);
+            //return error
         } else {
-            return Util::manageResponse($this, $curl);
-        }
+            return $rest->manageResponse($this, $curl);
+        }*/
     }
 }
 
@@ -101,7 +105,7 @@ trait charge
         if($curl->error){
             return Util::getError($curl);
         }else{
-            return Util::manageResponse($this,$curl);
+            return $rest->manageResponse($this,$curl);
         }
     }
 
@@ -113,7 +117,7 @@ trait charge
         if($curl->error){
             return Util::getError($curl);
         }else{
-            return Util::manageResponse($this,$curl);
+            return $rest->manageResponse($this,$curl);
         }
     }
 }
@@ -125,41 +129,11 @@ trait Util
         return array("Error code" => $curl->errorCode, "Error message" => $curl->errorMessage);
     }
 
-    public function createObjectResponse($class, $response)
+    protected function _getError($responseCurl)
     {
-        $className = new \ReflectionObject($class);
-        switch ($className->getShortName()) {
-            case "Customers":
-                $customers = new Customers();
-                $customers->_set($response);
-                return $customers;
-            case "Cards":
-                //return new Cards($response);
-                return $this->buildCards($response);
-            case "Bank_accounts":
-                return new Bank_accounts($response);
-            case "Charges":
-                return new Charges($response);
-        }
-    }
-
-    protected function buildCards($parameters){
-        $r = new \ReflectionClass("Cards");
-        return $instance = $r->newInstanceArgs($parameters);
-    }
-
-    static public function manageResponse($class, $curl)
-    {
-        switch ($curl->httpStatusCode) {
-            case 200:
-                return $curl->response;
-            case 401:
-                return $curl->response;
-            case 410:
-                return "Cartao ja foi deletado anteriormente";
-            default:
-                return $curl->httpStatusCode;
-        }
+        $message =  json_decode($responseCurl->rawResponse)->error;
+        $errors = array("code"=>"$responseCurl->httpStatusCode", "message"=>$message);
+        return new PaggiResponse($errors);
     }
 }
 
@@ -199,10 +173,27 @@ class RestClient
         return strtolower($this->endPoint . str_replace('\\', '/', $resource));
     }
 
+    /**
+     * @return Curl
+     */
     public function getCurl()
     {
         return $this->curl;
     }
 
+    protected function manageResponse($class, $curl)
+    {
+        switch ($curl->httpStatusCode) {
+            case 200:
+                print_r("KAKAKAKA");
+                return $curl->response;
+            case 401:
+                return $curl->response;
+            case 410:
+                return array("message"=>"Cartao ja foi deletado anteriormente");
+            default:
+                return $curl->httpStatusCode;
+        }
+    }
 }
 ?>
