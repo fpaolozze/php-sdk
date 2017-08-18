@@ -3,15 +3,16 @@
 namespace Paggi;
 
 use Paggi\model\Card;
+use Paggi\PaggiResponse;
+use Paggi\PaggiException;
 
 class Cards
 {
     private $restClient;
 
-    use insert;
-    use findById;
-    use findAll;
-    use delete;
+    use Util;
+    use insert, findById,findAll, delete{
+    }
 
     /**
      * Cards constructor. Instance the RestClient object. The curl/restclient must be initilized on the constructor;
@@ -29,8 +30,7 @@ class Cards
      */
     public function createCard($params)
     {
-        $response = $this->_create($this->restClient,$params);
-        return new Card($response);
+        return $this->_create($this->restClient,$params);
     }
 
     /** List all cards with pagination and creation date filter
@@ -38,8 +38,7 @@ class Cards
      * @return Card object
      */
     public function findAll($query_params = []){
-        $response = $this->_findAll($this->restClient, $query_params);
-        return new Card($response);
+        return $this->_findAll($this->restClient, $query_params);
     }
 
     /**
@@ -48,8 +47,7 @@ class Cards
      * @return Thee removed card object
      */
     public function delete($card_id){
-        $response = $this->_delete($this->restClient,$card_id);
-        return new Card($response);
+        return $this->_delete($this->restClient,$card_id);
     }
 
     /** Retrieves a card
@@ -57,8 +55,7 @@ class Cards
      * @return Card object
      */
     public function findById($card_id){
-        $response = $this->_findById($this->restClient,$card_id);
-        return new Card($response);
+        return $this->_findById($this->restClient,$card_id);
     }
 
 }
