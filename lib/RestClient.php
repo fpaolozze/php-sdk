@@ -7,6 +7,8 @@ require 'vendor/autoload.php';
 use \Curl\Curl;
 use Paggi\model\Card;
 use Paggi\model\Bank;
+use Paggi\model\Customer;
+use Paggi\model\Charge;
 trait findById
 {
     protected function _findById($rest,$id)
@@ -22,7 +24,7 @@ trait findById
 
 trait findAll
 {
-    public function _findAll($rest, $query_params)
+    protected function _findAll($rest, $query_params)
     {
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
@@ -47,7 +49,7 @@ trait insert
 
 trait update
 {
-    public function _update($rest,$id, $params)
+    protected function _update($rest,$id, $params)
     {
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
@@ -61,7 +63,7 @@ trait update
 
 trait delete
 {
-    public function _delete($rest,$id)
+    protected function _delete($rest,$id)
     {
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
@@ -72,32 +74,25 @@ trait delete
     }
 }
 
-trait charge
+trait charge_
 {
     //Charge an user using user's default card
-    public function _charge($rest,$params)
+    protected function _charge($rest,$params)
     {
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
 
-        $curl->post($rest->getEndpoint($class->getShortName(), json_encode($params)));
-        if($curl->error){
-            return array("Error code" => $curl->errorCode, "Error message" => $curl->errorMessage);
-        }else{
-            return $rest->manageResponse($this,$curl);
-        }
+        $curl->post($rest->getEndpoint($class->getShortName()), json_encode($params));
+
+        return $this->manageResponse($curl,$class);
     }
 
-    public function _cancel($rest,$chargeId){
+    protected function _cancelCapture($rest,$chargeId,$resource){
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
 
-        $curl->put($rest->getEndpoint($class->getShortName()."/".$chargeId."/cancel"));
-        if($curl->error){
-            return array("Error code" => $curl->errorCode, "Error message" => $curl->errorMessage);
-        }else{
-            return $rest->manageResponse($this,$curl);
-        }
+        $curl->put($rest->getEndpoint($class->getShortName()."/".$chargeId."/".$resource));
+        return $this->manageResponse($curl,$class);
     }
 }
 
@@ -105,23 +100,22 @@ trait Util
 {/**/
 
     protected function manageResponse($responseCurl,$class = null){
-        if($responseCurl->error){
-            throw new PaggiException(new PaggiResponse($this->_getError($responseCurl)));
-        }else{
             switch ($responseCurl->httpStatusCode){
                 case 200:
                     return $this->getResourceObject($class, $responseCurl);
+                case 402:
+                    return $this->getResourceObject($class, $responseCurl);
                 default:
-                    throw new PaggiException($this->__getError($responseCurl));
+                    throw new PaggiException($this->_getError2($responseCurl));
             }
-        }
     }
 
-    protected function _getError($responseCurl)
+    protected function _getError2($responseCurl)
     {
-        $message =  json_decode($responseCurl->rawResponse)->error;
-        $errors = array("code"=>"$responseCurl->httpStatusCode", "message"=>$message);
-        return new PaggiResponse($errors);
+        $message =  json_decode($responseCurl->rawResponse,true);
+        $code = array("code"=>$responseCurl->httpStatusCode);
+        array_push($message['errors'],$code);
+        return new PaggiResponse($message);
     }
 
     protected function getResourceObject($class, $responseCurl){
@@ -131,7 +125,9 @@ trait Util
             case "Banks":
                 return new Bank($responseCurl->response);
             case "Customers":
-                return new Customers($responseCurl->response);
+                return new Customer($responseCurl->response);
+            case "Charges":
+                return new Charge($responseCurl->response);
             default:
                 return "ERRO AO CRIAR OBJETO";
         }
@@ -153,7 +149,7 @@ class RestClient
         $this->endPoint = $this->getEnviroment($isStaging);//get_class($this)
 
         $this->curl = new Curl();
-        $this->curl->setBasicAuthentication($token, $token);
+        $this->curl->setBasicAuthentication($token, "");
         $this->curl->setDefaultJsonDecoder($assoc = true);
         $this->curl->setHeader('Content-Type', 'application/json; charset=utf-8');
         //$this->curl->setDefaultTimeout();//TIMEOUT?
