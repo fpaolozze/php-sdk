@@ -3,97 +3,73 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use Paggi\Paggi;
-use Paggi\Customers;
-use Paggi\Cards;
-use Paggi\Bank_accounts;
-use Paggi\Charges;
-use Paggi\Custom;
 
-$dev_token = "B31DCE74-E768-43ED-86DA-85501612548F";
 $staging_token = "d3606313-bc7e-428d-8254-ec83853bbd72";
+$dev_token = "B31DCE74-E768-43ED-86DA-85501612548F";
 
-Paggi::init($dev_token, true);
 
-//CARDS ##############################
+$paggi = new Paggi($dev_token, true);
 
-//$cards = new Cards();
-
-$metadata = array("internal_id" => "84372");
-
-$cardParams = array("customer_id" => "customer_7241f2c6-d8d7-4648-9843-e494c1ac881b",
+$cardParams = array(
+    "customer_id" => "customer_7241f2c6-d8d7-4648-9843-e494c1ac881b",
     "name" => "Cartao testando",
     "number" => "5514967494092156",
     "month" => "12",
     "year" => "20",
-    "cvc" => "210",
-    "card_alias" => "Cartao dourado");
+    "cvc" => "210");
 
-$params = array("bank_id" => "bank_30860418-f51d-423f-812a-4d7cb659ac82",
-    "customer_id" => "customer_7241f2c6-d8d7-4648-9843-e494c1ac881b",
-    "number" => "123445",//012922
-    "digit" => "1",
-    "branch" => "333",
-    "branch_digit" => "1");
+$customerParams = array("name" => "Rafael Felipe", "email" => "rafael@gmail.com", "card" => $cardParams);
 
-//$res = $cards->findAll(); //implementar findAll
-//$res = $cards->findById("card_79ca5b97-3d40-42d6-ae85-21fa26e737e2");
-//echo json_encode($res);
-
-//BANK_ACCOUNTS #########################
-
-//$bank_accounts = new Bank_accounts($params);
-
-/*$array = ($bank_accounts->findAll()->result);
-foreach ($array as $account){
-    print_r(json_encode($account)."<p>");
-}*/
-
-//echo json_encode($bank_accounts);
-
-//$res = ($bank_accounts->findAll());
-//$res =  ($bank_accounts->findById("bank_account_bfbbd2f5-c3f2-41db-9b69-c97f3fa580bc"));//->number
-//$res =  ($bank_accounts->create($params)->customer_id);//bank['name']
-//$res = $bank_accounts->update("bank_account_bfbbd2f5-c3f2-41db-9b69-c97f3fa580bc",$params); //->number
-
-//$res = $bank_accounts->create();
-//echo json_encode($res);
-
-//CHARGES #######################################
-
-$chargesSimple = array(
-    "amount"=>100,
-    "customer_id"=>"customer_ab32d26f-f396-460e-a2c4-7963543055b4");
-
-$charges = new Charges($chargesSimple);
-$res = $charges->charge();
-//$res = $charges->cancel("charge_1b3a31a8-78b8-4ae7-a6e3-9f0776c4f2d9");
-//$res = $charges->findAll();
-echo (json_encode($res));//->customer
+//Paggi::isStaging();
+//echo Paggi::getToken();
 
 
-//Requests
+try {
+    //$p = $paggi->newCall();
+    //$paggi->cards()->findAll();
+    //$r3 = $paggi->cards()->createCard($cardParams);
+    //$r2 = $paggi->cards()->delete("card_609fe86f-5657-4a4b-873c-a9f98cbaa5f4");
+    //$r3 = $paggi->cards()->findById($r1->id);
+    //echo json_encode($r1);
+    //$r3 = $paggi->cards()->findById("card_609fe86f-5657-4a4b-873c-a9f98cbaa5f4");
 
-$banks = new Banks();
-$list = $banks->getList();
+    //$b = $paggi->banks()->findAll();
 
-$customers = new Customers($params);
-$customers->create();
-$customers->findById("id");
-$customers->findAll();
+    //$c = $paggi->customers()->findById("customer_7241f2c6-d8d7-4648-9843-e494c1ac881b");
+    //$c = $paggi->customers()->create($customerParams);
+    //$c = $paggi->customers()->update("customer_7c2e30e4-ccbd-4431-afd0-1c93d5641ab5",array("name"=>"ANA PAULA"));
+    //$c = $paggi->customers()->findAll();
 
-$cards = new Cards($params);
-$cards->create();
-$cards->findAll();
-$cards->findById("id");
+    $intermediaries = array(
+        "fee" => 20.0,
+        "flat" => 10,
+        "description" => "Win 10 cents promotion",
+        "customer_id" => "customer_74ff4ff0-0d95-4d18-a1c5-187f3fca0df6"
+    );
 
-$charges = new Charges($params);
-$charges->create();
-$charges->findById("id");
-$charges->findAll();
+    $intermediaries2 = array(
+        "fee" => 0.0,
+        "flat" => 10,
+        "description" => "Win 10 cents promotion",
+        "customer_id" => "customer_7c2e30e4-ccbd-4431-afd0-1c93d5641ab5"
+    );
 
+    $t = array($intermediaries,$intermediaries2);
 
+    $chargesSimple = array(
+        "destination" => "customer_bdb43875-a19f-4d0a-a901-720e33cc5745",
+        "amount" => 1000,
+        "customer_id" => "customer_ab32d26f-f396-460e-a2c4-7963543055b4",
+        "intermediaries"=>$t
+    );
 
-
+    $ch = $paggi->charges()->charge($chargesSimple);
+    //$ch = $paggi->charges()->cancel("charge_fb322e1b-b577-485f-828c-56ddca16c522");
+    //$ch = $paggi->charges()->capture("charge_fb322e1b-b577-485f-828c-56ddca16c522");
+    echo json_encode($ch);
+} catch (Exception $ex) {
+    echo($ex->getMessage());
+}
 
 
 ?>
