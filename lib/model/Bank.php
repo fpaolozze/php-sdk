@@ -18,8 +18,9 @@ class Bank implements \JsonSerializable {
 
     public function jsonSerialize()
     {
-        return get_object_vars($this);
+        $this->get_object_vars($this);
     }
+
 }
 
 
