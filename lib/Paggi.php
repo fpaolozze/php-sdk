@@ -75,6 +75,12 @@ class Paggi
         }
     }
 
+    public function charges(){
+        if(!$this->charges instanceof Charges){
+            return $this->charges = new Charges($this->restClient);
+        }
+    }
+
 
 
 }
