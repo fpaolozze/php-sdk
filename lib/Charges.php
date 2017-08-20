@@ -30,6 +30,14 @@ class Charges
         return $this->_cancelCapture($this->restClient,$chargeId,"capture");
     }
 
+    public function findAll($query_params = []){
+        return $this->_findAll($this->restClient, $query_params);
+    }
+
+    public function findById($charge_id){
+        return $this->_findById($this->restClient,$charge_id);
+    }
+
 
 }
 

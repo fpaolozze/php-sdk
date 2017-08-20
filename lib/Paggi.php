@@ -43,7 +43,7 @@ class Paggi
      */
     public function newCall(){
         if($this instanceof $this){
-            return new Paggi("B31DCE74-E768-43ED-86DA-85501612548F",true);
+            return new Paggi(self::$token,true);
         }
     }
 
