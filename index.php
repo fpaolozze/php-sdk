@@ -63,10 +63,17 @@ try {
         "intermediaries"=>$t
     );
 
-    $ch = $paggi->charges()->charge($chargesSimple);
+    //$ch = $paggi->charges()->charge($chargesSimple);
     //$ch = $paggi->charges()->cancel("charge_fb322e1b-b577-485f-828c-56ddca16c522");
     //$ch = $paggi->charges()->capture("charge_fb322e1b-b577-485f-828c-56ddca16c522");
+    //$ch = $paggi->charges()->findById("charge_5ffe3202-a32b-4fec-8bd9-b7afed68cba6");
+    $ch = $paggi->charges()->findAll();
     echo json_encode($ch);
+
+    //$paggi2 = $paggi->newCall();
+    //$can = $paggi2->charges()->cancel($ch->id);
+    //echo json_encode($can)
+
 } catch (Exception $ex) {
     echo($ex->getMessage());
 }
