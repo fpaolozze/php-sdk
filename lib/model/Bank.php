@@ -2,25 +2,26 @@
 
 namespace Paggi\model;
 
-use Paggi\ModelBuild;
+class Bank
+{
 
-class Bank implements \JsonSerializable {
-
-    use ModelBuild;
-
-    public $name;
-    public $id;
+    public $result = array();
 
     public function __construct($response)
     {
-        $this->buildObject($response);
+        foreach ($response as $objeto) {
+            $banco = new Banco();
+            $banco->name = $objeto['name'];
+            $banco->id = $objeto['id'];
+            array_push($this->result, $banco);
+        }
     }
+}
 
-    public function jsonSerialize()
-    {
-        $this->get_object_vars($this);
-    }
-
+class Banco
+{
+    public $name;
+    public $id;
 }
 
 
