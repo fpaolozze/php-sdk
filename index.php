@@ -81,10 +81,10 @@ try {
     //$charge = $paggi->charges()->charge($chargesSimple);
     //$charge = $paggi->charges()->cancel("charge_8dc93a37-cba4-4201-a122-b4caed0ea20a");
     //$charge = $paggi->charges()->capture("charge_fb322e1b-b577-485f-828c-56ddca16c522");
-    $charge = $paggi->charges()->findById("charge_8dc93a37-cba4-4201-a122-b4caed0ea20a");
+    //$charge = $paggi->charges()->findById("charge_8dc93a37-cba4-4201-a122-b4caed0ea20a");
     //$charge = $paggi->charges()->findAll();
 
-    echo($charge->status);
+    //echo($charge->status);
     //echo json_encode($charge->result[0]['status']);
 
     ## Banks
@@ -101,7 +101,7 @@ try {
     //$bancoAccount = $paggi->bank_accounts()->update("bank_account_cbf23629-0eb5-47c8-b7ae-cbb9e7360ec8");
 
 
-
+    //print_r($bancoAccount->id);
     //print_r($bancoAccount->result[0]['number']);
 
     //$paggi2 = $paggi->newCall();

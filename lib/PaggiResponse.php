@@ -2,6 +2,10 @@
 
 namespace Paggi;
 
+/**
+ * Class PaggiResponse
+ * @package Paggi
+ */
 class PaggiResponse{
 
     use \Paggi\ModelBuild;
