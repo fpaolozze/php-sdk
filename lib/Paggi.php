@@ -73,9 +73,9 @@ class Paggi
      */
     public function cards()
     {
-        if (!$this->cards instanceof Cards) {
+        //if (!$this->cards instanceof Cards) {
             return $this->cards = new Cards($this->restClient);
-        }
+        //}
     }
 
     /**
@@ -84,9 +84,9 @@ class Paggi
      */
     public function banks()
     {
-        if (!$this->banks instanceof Banks) {
+        //if (!$this->banks instanceof Banks) {
             return $this->banks = new Banks($this->restClient);
-        }
+        //}
     }
 
     /**
@@ -95,9 +95,9 @@ class Paggi
      */
     public function bank_accounts()
     {
-        if (!$this->bank_accounts instanceof Bank_accounts) {
+        //if (!$this->bank_accounts instanceof Bank_accounts) {
             return $this->bank_accounts = new Bank_accounts($this->restClient);
-        }
+        //}
     }
 
     /**
@@ -106,9 +106,9 @@ class Paggi
      */
     public function customers()
     {
-        if (!$this->customers instanceof Customers) {
+        //if (!$this->customers instanceof Customers) {
             return $this->customers = new Customers($this->restClient);
-        }
+        //}
     }
 
     /**
