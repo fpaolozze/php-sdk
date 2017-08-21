@@ -23,9 +23,9 @@ class Cards
      * Cards constructor. Instance the RestClient object. The curl/restclient must be initilized on the constructor;
      * @param $restClient Get from Paggi class
      */
-    public function __construct($restClient)
+    public function __construct()
     {
-        $this->restClient = $restClient;
+        $this->restClient = new RestClient();
     }
 
     /**
