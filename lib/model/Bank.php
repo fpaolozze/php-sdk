@@ -2,23 +2,32 @@
 
 namespace Paggi\model;
 
+/**
+ * Class Bank - Represents a Bank catalog
+ * @package Paggi\model
+ */
 class Bank
 {
-
     public $result = array();
 
     public function __construct($response)
     {
-        foreach ($response as $objeto) {
-            $banco = new Banco();
-            $banco->name = $objeto['name'];
-            $banco->id = $objeto['id'];
-            array_push($this->result, $banco);
+        if(!is_null($response)) {
+            foreach ($response as $objeto) {
+                $banco = new BankObj();
+                $banco->name = $objeto['name'];
+                $banco->id = $objeto['id'];
+                array_push($this->result, $banco);
+            }
         }
     }
 }
 
-class Banco
+/**
+ * Class BankObj - represents a bank model
+ * @package Paggi\model
+ */
+class BankObj
 {
     public $name;
     public $id;
