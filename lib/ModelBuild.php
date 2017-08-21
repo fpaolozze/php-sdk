@@ -2,25 +2,15 @@
 
 namespace Paggi;
 
-use Paggi\model\Bank;
-
 trait ModelBuild
 {
-    //key_exists - in_array
+    //key_exists - property_exists - array_key_exists - in_array (values)
 
-    protected function buildObjectTeste($response)
-    {
-        foreach ($response as $key => $objeto) {
-            if (is_array($objeto)) {
-                foreach ($objeto as $name) {
-                    //if (property_exists($this, $name)) {
-                        $this->{$key} = $objeto;
-                    //}
-                }
-            }
-        }
-    }
-
+    /**
+     * This method get the response values and set it in to the parameters class.
+     * $this -> is a class that call it.
+     * @param $properties values from Json response
+     */
     protected function buildObject($properties)
     {
         foreach ($properties as $key => $value) {
