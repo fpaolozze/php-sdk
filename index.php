@@ -24,51 +24,82 @@ $customerParams = array("name" => "Rafael Felipe", "email" => "rafael@gmail.com"
 //echo Paggi::getToken();
 
 
+$intermediaries = array(
+    "fee" => 20.0,
+    "flat" => 10,
+    "description" => "Win 10 cents promotion",
+    "customer_id" => "customer_74ff4ff0-0d95-4d18-a1c5-187f3fca0df6"
+);
+
+$intermediaries2 = array(
+    "fee" => 0.0,
+    "flat" => 10,
+    "description" => "Win 10 cents promotion",
+    "customer_id" => "customer_7c2e30e4-ccbd-4431-afd0-1c93d5641ab5"
+);
+
+$t = array($intermediaries, $intermediaries2);
+
+$chargesSimple = array(
+    "destination" => "customer_bdb43875-a19f-4d0a-a901-720e33cc5745",
+    "amount" => 1000,
+    "customer_id" => "customer_ab32d26f-f396-460e-a2c4-7963543055b4");
+//"intermediaries"=>$t
+
+$bank_accountParams = array("customer_id" => "customer_8057b7ef-80e0-4732-a226-7e024a84b42b",
+    "bank_id" => "bank_30860418-f51d-423f-812a-4d7cb659ac82",
+    "number" => "0123456",
+    "digit" => "1",
+    "branch" => "333",
+    "branch_digit" => "1");
+
+
 try {
-    //$p = $paggi->newCall();
-    //$paggi->cards()->findAll();
-    //$r3 = $paggi->cards()->createCard($cardParams);
-    //$r2 = $paggi->cards()->delete("card_609fe86f-5657-4a4b-873c-a9f98cbaa5f4");
-    //$r3 = $paggi->cards()->findById($r1->id);
-    //echo json_encode($r1);
-    //$r3 = $paggi->cards()->findById("card_609fe86f-5657-4a4b-873c-a9f98cbaa5f4");
+
+    ## Cards
+
+    //$c = $paggi->cards()->createCard($cardParams);
+    //$c = $paggi->cards()->delete("card_609fe86f-5657-4a4b-873c-a9f98cbaa5f4");
+    //$c = $paggi->cards()->findById("card_609fe86f-5657-4a4b-873c-a9f98cbaa5f4");
+    //$c = $paggi->cards()->findAll();
+
+    //print_r($c->result[0]['brand']); //findAll
+    //print_r($c->customer_id);
+
+    ## Customers
+
+    //$customer = $paggi->customers()->findById("customer_7241f2c6-d8d7-4648-9843-e494c1ac881b");
+    //$customer = $paggi->customers()->create($customerParams);
+    //$customer = $paggi->customers()->update("customer_7c2e30e4-ccbd-4431-afd0-1c93d5641ab5",array("name"=>"ANA PAULA"));
+    //$customer = $paggi->customers()->findAll();
+
+    //print_r($customer->result[0]['name']);
+
+    ## Charges
+
+    //$charge = $paggi->charges()->charge($chargesSimple);
+    //$charge = $paggi->charges()->cancel("charge_fb322e1b-b577-485f-828c-56ddca16c522");
+    //$charge = $paggi->charges()->capture("charge_fb322e1b-b577-485f-828c-56ddca16c522");
+    //$charge = $paggi->charges()->findById("charge_5ffe3202-a32b-4fec-8bd9-b7afed68cba6");
+    //$charge = $paggi->charges()->findAll();
+
+    //echo($charge->status);
+    //echo json_encode($charge->result[0]['status']);
+
+    ## Banks
 
     //$b = $paggi->banks()->findAll();
+    //print_r ($b->result[9]->id);
 
-    //$c = $paggi->customers()->findById("customer_7241f2c6-d8d7-4648-9843-e494c1ac881b");
-    //$c = $paggi->customers()->create($customerParams);
-    //$c = $paggi->customers()->update("customer_7c2e30e4-ccbd-4431-afd0-1c93d5641ab5",array("name"=>"ANA PAULA"));
-    //$c = $paggi->customers()->findAll();
 
-    $intermediaries = array(
-        "fee" => 20.0,
-        "flat" => 10,
-        "description" => "Win 10 cents promotion",
-        "customer_id" => "customer_74ff4ff0-0d95-4d18-a1c5-187f3fca0df6"
-    );
+    ## Bank Accounts
 
-    $intermediaries2 = array(
-        "fee" => 0.0,
-        "flat" => 10,
-        "description" => "Win 10 cents promotion",
-        "customer_id" => "customer_7c2e30e4-ccbd-4431-afd0-1c93d5641ab5"
-    );
+    //$bancoAccount = $paggi->bank_accounts()->findById("bank_account_cbf23629-0eb5-47c8-b7ae-cbb9e7360ec8");
+    //$bancoAccount = $paggi->bank_accounts()->create($bank_accountParams);
+    //$bancoAccount = $paggi->bank_accounts()->findAll();
+    //$bancoAccount = $paggi->bank_accounts()->update("bank_account_cbf23629-0eb5-47c8-b7ae-cbb9e7360ec8");
 
-    $t = array($intermediaries,$intermediaries2);
-
-    $chargesSimple = array(
-        "destination" => "customer_bdb43875-a19f-4d0a-a901-720e33cc5745",
-        "amount" => 1000,
-        "customer_id" => "customer_ab32d26f-f396-460e-a2c4-7963543055b4",
-        "intermediaries"=>$t
-    );
-
-    //$ch = $paggi->charges()->charge($chargesSimple);
-    //$ch = $paggi->charges()->cancel("charge_fb322e1b-b577-485f-828c-56ddca16c522");
-    //$ch = $paggi->charges()->capture("charge_fb322e1b-b577-485f-828c-56ddca16c522");
-    //$ch = $paggi->charges()->findById("charge_5ffe3202-a32b-4fec-8bd9-b7afed68cba6");
-    $ch = $paggi->charges()->findAll();
-    echo json_encode($ch);
+    //print_r($bancoAccount->result[0]['number']);
 
     //$paggi2 = $paggi->newCall();
     //$can = $paggi2->charges()->cancel($ch->id);
