@@ -4,14 +4,14 @@ namespace Paggi\model;
 
 use Paggi\ModelBuild;
 
-class Charge implements \JsonSerializable {
+class Charge{
 
     use ModelBuild;
 
     public $total;
-    public $result;
-    public $customer_id ;
-    public $capture;
+    public $result = array();
+    public $customer_id;
+    public $capture = false;
     public $receipt_email;
     public $created;
     public $force;
@@ -32,17 +32,9 @@ class Charge implements \JsonSerializable {
     public $acquirer_code;
 
 
-
-
     public function __construct($response)
     {
         $this->buildObject($response);
-    }
-
-
-    public function jsonSerialize()
-    {
-        return get_object_vars($this);
     }
 }
 
