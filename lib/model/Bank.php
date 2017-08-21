@@ -8,16 +8,18 @@ namespace Paggi\model;
  */
 class Bank
 {
-    public $result = array();
+    public $total = 0;
+    public $list = array();
 
     public function __construct($response)
     {
         if(!is_null($response)) {
+            $this->total = sizeof($response);
             foreach ($response as $objeto) {
                 $banco = new BankObj();
                 $banco->name = $objeto['name'];
                 $banco->id = $objeto['id'];
-                array_push($this->result, $banco);
+                array_push($this->list, $banco);
             }
         }
     }
