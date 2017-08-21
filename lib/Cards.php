@@ -17,8 +17,7 @@ class Cards
      * Find all cards
      * Delete a card
      */
-    use insert, findById, findAll, delete {
-    }
+    use insert, findById, findAll, delete;
 
     /**
      * Cards constructor. Instance the RestClient object. The curl/restclient must be initilized on the constructor;
@@ -70,6 +69,8 @@ class Cards
         $response = $this->_findById($this->restClient, $card_id);
         return new Card($response);
     }
+
+
 
 }
 
