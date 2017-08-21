@@ -25,9 +25,13 @@ class Paggi
      * Paggi constructor.
      * @param $token The user Paggi TOKEN
      * @param bool $staging If the environment is staging
+     * @throws PaggiException
      */
     public function __construct($token, $staging = false)
     {
+        if(is_null($token) || strcmp($token,"")==0){
+            throw new PaggiException(array("type"=>"Unauthorized","message"=>"The parameter 'token' cannot be a null or empty string"));
+        }
         self::$isStaging = $staging;
         self::$token = $token;
         $this->restClient = new RestClient();
@@ -103,7 +107,6 @@ class Paggi
     }
 
     /**
-     * Return a charges manager
      * @return Charges
      */
     public function charges(){
