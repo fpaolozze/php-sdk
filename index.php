@@ -72,35 +72,37 @@ $bank_accountParams = array("customer_id" => "customer_8057b7ef-80e0-4732-a226-7
     //$customer = $paggi->customers()->update("customer_7c2e30e4-ccbd-4431-afd0-1c93d5641ab5",array("name"=>"ANA PAULA"));
     //$customer = $paggi->customers()->findAll();
 
+    //print_r($customer->total);
     //print_r($customer->result[0]['name']);
     //print_r($customer->name);
 
     ## Charges
 
-    //$charge = $paggi->charges()->charge($chargesSimple);
-    //$charge = $paggi->charges()->cancel("charge_8dc93a37-cba4-4201-a122-b4caed0ea20a");
-    //$charge = $paggi->charges()->capture("charge_fb322e1b-b577-485f-828c-56ddca16c522");
-    //$charge = $paggi->charges()->findById("charge_8dc93a37-cba4-4201-a122-b4caed0ea20a");
-    //$charge = $paggi->charges()->findAll();
+    $charge1 = $paggi->charges()->charge($chargesSimple);
+    $charge2 = $paggi->charges()->cancel("charge_8dc93a37-cba4-4201-a122-b4caed0ea20a");
+    $charge3 = $paggi->charges()->capture("charge_fb322e1b-b577-485f-828c-56ddca16c522");
+    $charge4 = $paggi->charges()->findById("charge_fb322e1b-b577-485f-828c-56ddca16c522");
+    $charge5 = $paggi->charges()->findAll();
 
-    //echo($charge->status);
-    //echo json_encode($charge->result[0]['status']);
+    echo($charge1->status);
+    echo json_encode($charge5->result[0]['status']);
 
     ## Banks
 
     //$b = $paggi->banks()->findAll();
-    //print_r ($b->result[9]->id);
+    //print_r($b->list);
+    //print_r ($b->list[9]->id);
 
 
     ## Bank Accounts
 
-    $bancoAccount = $paggi->bank_accounts()->findById("bank_account_cbf23629-0eb5-47c8-b7ae-cbb9e7360ec8");
+    //$bancoAccount = $paggi->bank_accounts()->findById("bank_account_cbf23629-0eb5-47c8-b7ae-cbb9e7360ec8");
     //$bancoAccount = $paggi->bank_accounts()->create($bank_accountParams);
     //$bancoAccount = $paggi->bank_accounts()->findAll();
     //$bancoAccount = $paggi->bank_accounts()->update("bank_account_cbf23629-0eb5-47c8-b7ae-cbb9e7360ec8");
 
 
-    print_r($bancoAccount->id);
+    //print_r($bancoAccount->id);
     //print_r($bancoAccount->result[0]['number']);
 
     //$paggi2 = $paggi->newCall();
