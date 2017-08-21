@@ -4,6 +4,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Paggi\Paggi;
 
+$invalid_token = "1234567890";
 $staging_token = "d3606313-bc7e-428d-8254-ec83853bbd72";
 $dev_token = "B31DCE74-E768-43ED-86DA-85501612548F";
 
@@ -74,6 +75,7 @@ try {
     //$customer = $paggi->customers()->findAll();
 
     //print_r($customer->result[0]['name']);
+    //print_r($customer->name);
 
     ## Charges
 
@@ -99,6 +101,8 @@ try {
     //$bancoAccount = $paggi->bank_accounts()->findAll();
     //$bancoAccount = $paggi->bank_accounts()->update("bank_account_cbf23629-0eb5-47c8-b7ae-cbb9e7360ec8");
 
+
+
     //print_r($bancoAccount->result[0]['number']);
 
     //$paggi2 = $paggi->newCall();
@@ -107,6 +111,7 @@ try {
 
 } catch (Exception $ex) {
     echo($ex->getMessage());
+    exit(1);
 }
 
 
