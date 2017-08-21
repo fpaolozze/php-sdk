@@ -5,19 +5,16 @@ namespace Paggi;
 require 'vendor/autoload.php';
 
 use \Curl\Curl;
-use Paggi\model\Card;
-use Paggi\model\Bank;
-use Paggi\model\Customer;
-use Paggi\model\Charge;
+
 trait findById
 {
-    protected function _findById($rest,$id)
+    protected function _findById($rest, $id)
     {
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
 
         $curl->get($rest->getEndpoint($class->getShortName()) . "/" . $id);
-        return $this->manageResponse($curl,$class);
+        return $this->manageResponse($curl, $class);
     }
 
 }
@@ -28,34 +25,35 @@ trait findAll
     {
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
-        $curl->get($rest->getEndpoint($class->getShortName()),$query_params);
 
-        return $this->manageResponse($curl,$class);
+        $curl->get($rest->getEndpoint($class->getShortName()), $query_params);
+
+        return $this->manageResponse($curl, $class);
     }
 }
 
 trait insert
 {
-    protected function _create($rest,$params)
+    protected function _create($rest, $params)
     {
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
 
         $curl->post($rest->getEndpoint($class->getShortName()), json_encode($params));
 
-        return $this->manageResponse($curl,$class);
+        return $this->manageResponse($curl, $class);
     }
 }
 
 trait update
 {
-    protected function _update($rest,$id, $params)
+    protected function _update($rest, $id, $params)
     {
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
         $curl->put($rest->getEndpoint($class->getShortName()) . "/" . $id, json_encode($params));
 
-        return $this->manageResponse($curl,$class);
+        return $this->manageResponse($curl, $class);
     }
 
 }
@@ -63,74 +61,70 @@ trait update
 
 trait delete
 {
-    protected function _delete($rest,$id)
+    protected function _delete($rest, $id)
     {
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
 
         $curl->delete($rest->getEndpoint($class->getShortName()) . "/" . $id);
 
-        return $this->manageResponse($curl,$class);
+        return $this->manageResponse($curl, $class);
     }
 }
 
 trait charge_
 {
     //Charge an user using user's default card
-    protected function _charge($rest,$params)
+    protected function _charge($rest, $params)
     {
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
 
         $curl->post($rest->getEndpoint($class->getShortName()), json_encode($params));
 
-        return $this->manageResponse($curl,$class);
+        return $this->manageResponse($curl, $class);
     }
 
-    protected function _cancelCapture($rest,$chargeId,$resource){
+    protected function _cancelCapture($rest, $chargeId, $resource)
+    {
         $curl = $rest->getCurl();
         $class = new \ReflectionObject($this);
 
-        $curl->put($rest->getEndpoint($class->getShortName()."/".$chargeId."/".$resource));
-        return $this->manageResponse($curl,$class);
+        $curl->put($rest->getEndpoint($class->getShortName() . "/" . $chargeId . "/" . $resource));
+        return $this->manageResponse($curl, $class);
     }
 }
 
 trait Util
 {/**/
 
-    protected function manageResponse($responseCurl,$class = null){
-            switch ($responseCurl->httpStatusCode){
-                case 200:
-                    return $this->getResourceObject($class, $responseCurl);
-                case 402:
-                    return $this->getResourceObject($class, $responseCurl);
-                default:
-                    throw new PaggiException($this->_getError2($responseCurl));
-            }
+    protected function manageResponse($responseCurl, $class = null)
+    {
+        switch ($responseCurl->httpStatusCode) {
+            case 200:
+                return $responseCurl->response;
+            case 402:
+                return $responseCurl->response;
+            default:
+                throw new PaggiException($this->_getError2($responseCurl));
+        }
     }
 
     protected function _getError2($responseCurl)
     {
-        $message =  json_decode($responseCurl->rawResponse,true);
-        $code = array("code"=>$responseCurl->httpStatusCode);
-        array_push($message['errors'],$code);
-        return new PaggiResponse($message);
-    }
-
-    protected function getResourceObject($class, $responseCurl){
-        switch ($class->getShortName()){
-            case "Cards":
-                return new Card($responseCurl->response);
-            case "Banks":
-                return new Bank($responseCurl->response);
-            case "Customers":
-                return new Customer($responseCurl->response);
-            case "Charges":
-                return new Charge($responseCurl->response);
-            default:
-                return "ERRO AO CRIAR OBJETO";
+        $originalError = json_decode($responseCurl->rawResponse, true);
+        $code = $responseCurl->httpStatusCode;
+        if (!is_null($originalError)) {
+            if (array_key_exists('errors', $originalError)) {
+                array_push($originalError['errors'], array("code" => "$code"));
+                $paggiError = $originalError;
+            } else {
+                $paggiError = array("error" => $originalError['error'], "code" => $code);
+            }
+        } else {
+            $paggiError = array("error" => 'No Content', "code" => $code);
         }
+        return $paggiError;
     }
 }
 
@@ -178,4 +172,5 @@ class RestClient
         return $this->curl;
     }
 }
+
 ?>
