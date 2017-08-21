@@ -2,6 +2,8 @@
 
 namespace Paggi;
 
+use Paggi\model\Bank;
+
 class Banks{
 
     use Util;
@@ -19,7 +21,8 @@ class Banks{
      * List all banks
      */
     public function findAll(){
-        return $this->_findAll($this->restClient,[]);
+        $response =  $this->_findAll($this->restClient,[]);
+        return new Bank($response);
     }
 
 }
