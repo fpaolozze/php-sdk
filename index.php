@@ -8,8 +8,9 @@ $invalid_token = "1234567890";
 $staging_token = "d3606313-bc7e-428d-8254-ec83853bbd72";
 $dev_token = "B31DCE74-E768-43ED-86DA-85501612548F";
 
+try{
 
-$paggi = new Paggi($dev_token, true);
+$paggi = new Paggi( $dev_token,true);
 
 $cardParams = array(
     "customer_id" => "customer_74ff4ff0-0d95-4d18-a1c5-187f3fca0df6",
@@ -50,8 +51,6 @@ $bank_accountParams = array("customer_id" => "customer_8057b7ef-80e0-4732-a226-7
     "branch" => "333",
     "branch_digit" => "1");
 
-
-try {
 
     //echo Paggi::isStaging();
     //echo Paggi::getToken();
