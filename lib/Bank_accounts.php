@@ -60,7 +60,7 @@ class Bank_accounts
      * @param $body_params
      * @return BankAccount
      */
-    public function update($bank_account_id, $body_params){
+    public function update($bank_account_id, $body_params = []){
         $response = $this->_update($this->restClient,$bank_account_id,$body_params);
         return new BankAccount($response);
     }
