@@ -29,8 +29,8 @@ class Paggi
      */
     public function __construct($token, $staging = false)
     {
-        if(is_null($token) || strcmp($token,"")==0){
-            throw new PaggiException(array("type"=>"Unauthorized","message"=>"The parameter 'token' cannot be a null or empty string"));
+        if (is_null($token) || strcmp($token, "") == 0) {
+            throw new PaggiException(array("type" => "Unauthorized", "message" => "The parameter 'token' cannot be a null or empty string"));
         }
         self::$isStaging = $staging;
         self::$token = $token;
@@ -60,9 +60,10 @@ class Paggi
      * This method return a new instance of the Paggi for the a new call
      * @return Paggi
      */
-    public function newCall(){
-        if($this instanceof $this){
-            return new Paggi(self::$token,true);
+    public function newCall()
+    {
+        if ($this instanceof $this) {
+            return new Paggi(self::$token, true);
         }
     }
 
@@ -70,8 +71,9 @@ class Paggi
      * Return a Cards manager
      * @return Cards manager
      */
-    public function cards(){
-        if(!$this->cards instanceof Cards){
+    public function cards()
+    {
+        if (!$this->cards instanceof Cards) {
             return $this->cards = new Cards($this->restClient);
         }
     }
@@ -80,8 +82,9 @@ class Paggi
      * Return a Banks manager
      * @return Banks
      */
-    public function banks(){
-        if(!$this->banks instanceof Banks){
+    public function banks()
+    {
+        if (!$this->banks instanceof Banks) {
             return $this->banks = new Banks($this->restClient);
         }
     }
@@ -90,8 +93,9 @@ class Paggi
      * Return Bank accounts
      * @return Bank_accounts
      */
-    public function bank_accounts(){
-        if(!$this->bank_accounts instanceof Bank_accounts){
+    public function bank_accounts()
+    {
+        if (!$this->bank_accounts instanceof Bank_accounts) {
             return $this->bank_accounts = new Bank_accounts($this->restClient);
         }
     }
@@ -100,8 +104,9 @@ class Paggi
      * Return a Customer manager
      * @return Customers
      */
-    public function customers(){
-        if(!$this->customers instanceof  Customers){
+    public function customers()
+    {
+        if (!$this->customers instanceof Customers) {
             return $this->customers = new Customers($this->restClient);
         }
     }
@@ -109,10 +114,9 @@ class Paggi
     /**
      * @return Charges
      */
-    public function charges(){
-        if(!$this->charges instanceof Charges){
-            return $this->charges = new Charges($this->restClient);
-        }
+    public function charges()
+    {
+        return $this->charges = new Charges();
     }
 
 }
