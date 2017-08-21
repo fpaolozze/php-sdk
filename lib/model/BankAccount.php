@@ -4,12 +4,13 @@ namespace Paggi\Model;
 
 use Paggi\ModelBuild;
 
+/**
+ * Class BankAccount
+ * @package Paggi\Model
+ */
 class BankAccount{
 
     use ModelBuild;
-
-    //public $total;
-    //public $result = array();
 
     public $id;
     public $customer_id;

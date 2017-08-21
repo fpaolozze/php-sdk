@@ -4,6 +4,10 @@ namespace Paggi\Model;
 
 use Paggi\ModelBuild;
 
+/**
+ * Class BankAccountCatalog - This class has a lit of BankAccounts
+ * @package Paggi\Model
+ */
 class BankAccountCatalog{
 
     use ModelBuild;

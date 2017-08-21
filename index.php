@@ -12,7 +12,7 @@ $dev_token = "B31DCE74-E768-43ED-86DA-85501612548F";
 $paggi = new Paggi($dev_token, true);
 
 $cardParams = array(
-    "customer_id" => "customer_7241f2c6-d8d7-4648-9843-e494c1ac881b",
+    "customer_id" => "customer_74ff4ff0-0d95-4d18-a1c5-187f3fca0df6",
     "name" => "Cartao testando",
     "number" => "5514967494092156",
     "month" => "12",
@@ -20,10 +20,6 @@ $cardParams = array(
     "cvc" => "210");
 
 $customerParams = array("name" => "Rafael Felipe", "email" => "rafael@gmail.com", "card" => $cardParams);
-
-//Paggi::isStaging();
-//echo Paggi::getToken();
-
 
 $intermediaries = array(
     "fee" => 20.0,
@@ -39,13 +35,13 @@ $intermediaries2 = array(
     "customer_id" => "customer_7c2e30e4-ccbd-4431-afd0-1c93d5641ab5"
 );
 
-$t = array($intermediaries, $intermediaries2);
+$intermediaries = array($intermediaries, $intermediaries2);
 
 $chargesSimple = array(
     "destination" => "customer_bdb43875-a19f-4d0a-a901-720e33cc5745",
     "amount" => 1000,
-    "customer_id" => "customer_ab32d26f-f396-460e-a2c4-7963543055b4");
-//"intermediaries"=>$t
+    "customer_id" => "customer_ab32d26f-f396-460e-a2c4-7963543055b4",
+    "intermediaries"=>$intermediaries);
 
 $bank_accountParams = array("customer_id" => "customer_8057b7ef-80e0-4732-a226-7e024a84b42b",
     "bank_id" => "bank_30860418-f51d-423f-812a-4d7cb659ac82",
@@ -57,6 +53,9 @@ $bank_accountParams = array("customer_id" => "customer_8057b7ef-80e0-4732-a226-7
 
 try {
 
+    //echo Paggi::isStaging();
+    //echo Paggi::getToken();
+
     ## Cards
 
     //$c = $paggi->cards()->createCard($cardParams);
@@ -65,7 +64,7 @@ try {
     //$c = $paggi->cards()->findAll();
 
     //print_r($c->result[0]['brand']); //findAll
-    //print_r($c->customer_id);
+    //print_r($c->id);
 
     ## Customers
 
@@ -80,12 +79,12 @@ try {
     ## Charges
 
     //$charge = $paggi->charges()->charge($chargesSimple);
-    //$charge = $paggi->charges()->cancel("charge_fb322e1b-b577-485f-828c-56ddca16c522");
+    //$charge = $paggi->charges()->cancel("charge_8dc93a37-cba4-4201-a122-b4caed0ea20a");
     //$charge = $paggi->charges()->capture("charge_fb322e1b-b577-485f-828c-56ddca16c522");
-    //$charge = $paggi->charges()->findById("charge_5ffe3202-a32b-4fec-8bd9-b7afed68cba6");
+    $charge = $paggi->charges()->findById("charge_8dc93a37-cba4-4201-a122-b4caed0ea20a");
     //$charge = $paggi->charges()->findAll();
 
-    //echo($charge->status);
+    echo($charge->status);
     //echo json_encode($charge->result[0]['status']);
 
     ## Banks
@@ -114,5 +113,6 @@ try {
     exit(1);
 }
 
+//$cl = $paggi->newCall()->cards()->delete($c->id);
 
 ?>

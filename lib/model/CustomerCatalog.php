@@ -4,6 +4,10 @@ namespace Paggi\model;
 
 use Paggi\ModelBuild;
 
+/**
+ * Class CustomerCatalog - has a list of Customers
+ * @package Paggi\model
+ */
 class CustomerCatalog
 {
     use ModelBuild;

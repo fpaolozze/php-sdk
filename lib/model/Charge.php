@@ -4,12 +4,14 @@ namespace Paggi\model;
 
 use Paggi\ModelBuild;
 
+/**
+ * Class Charge
+ * @package Paggi\model
+ */
 class Charge{
 
     use ModelBuild;
 
-    public $total;
-    public $result = array();
     public $customer_id;
     public $capture = false;
     public $receipt_email;

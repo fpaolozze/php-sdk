@@ -18,6 +18,11 @@ class Bank_accounts
         $this->restClient = new RestClient();
     }
 
+    /**
+     * Create a new account of customer
+     * @param $params
+     * @return BankAccount
+     */
     public function create($params){
         $response = $this->_create($this->restClient, $params);
         return new BankAccount($response);

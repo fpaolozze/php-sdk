@@ -4,6 +4,10 @@ namespace Paggi\model;
 
 use Paggi\ModelBuild;
 
+/**
+ * Class Customer
+ * @package Paggi\model
+ */
 class Customer
 {
     use ModelBuild;

@@ -4,7 +4,11 @@ namespace Paggi\model;
 
 use Paggi\ModelBuild;
 
-class Card implements \JsonSerializable
+/**
+ * Class Card
+ * @package Paggi\model
+ */
+class Card
 {
     use ModelBuild;
 
@@ -33,12 +37,6 @@ class Card implements \JsonSerializable
     {
         $this->buildObject($parameters);
     }
-
-    public function jsonSerialize()
-    {
-        return get_object_vars($this);
-    }
-
 }
 
 ?>
