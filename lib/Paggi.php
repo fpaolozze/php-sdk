@@ -2,6 +2,8 @@
 
 namespace Paggi;
 
+use Paggi\model\Charge;
+
 include 'lib/RestClient.php';
 
 /**
@@ -73,9 +75,10 @@ class Paggi
      */
     public function cards()
     {
-        //if (!$this->cards instanceof Cards) {
+        if (!$this->cards instanceof Cards) {
             return $this->cards = new Cards($this->restClient);
-        //}
+        }
+        return $this->cards;
     }
 
     /**
@@ -84,9 +87,10 @@ class Paggi
      */
     public function banks()
     {
-        //if (!$this->banks instanceof Banks) {
+        if (!$this->banks instanceof Banks) {
             return $this->banks = new Banks($this->restClient);
-        //}
+        }
+        return $this->banks;
     }
 
     /**
@@ -95,9 +99,10 @@ class Paggi
      */
     public function bank_accounts()
     {
-        //if (!$this->bank_accounts instanceof Bank_accounts) {
+        if (!$this->bank_accounts instanceof Bank_accounts) {
             return $this->bank_accounts = new Bank_accounts($this->restClient);
-        //}
+        }
+        return $this->bank_accounts;
     }
 
     /**
@@ -106,9 +111,10 @@ class Paggi
      */
     public function customers()
     {
-        //if (!$this->customers instanceof Customers) {
+        if (!$this->customers instanceof Customers) {
             return $this->customers = new Customers($this->restClient);
-        //}
+        }
+        return $this->customers;
     }
 
     /**
@@ -116,7 +122,10 @@ class Paggi
      */
     public function charges()
     {
-        return $this->charges = new Charges();
+        if(!$this->charges instanceof Charges) {
+            return $this->charges = new Charges();
+        }
+        return $this->charges;
     }
 
 }
