@@ -4,34 +4,16 @@ namespace Paggi\model;
 
 use Paggi\ModelBuild;
 
-class Customer implements \JsonSerializable
+class CustomerCatalog
 {
     use ModelBuild;
 
-    public $total = 1;
+    public $total = 0;
     public $result = array();
-
-    //response
-    public $name;
-    public $email;
-    public $document;
-    public $phone;
-    public $address;
-    public $card;
-    public $id;
-    //body/response
-    public $description;
-    public $metadata;
 
     public function __construct($response)
     {
         $this->buildObject($response);
-    }
-
-
-    public function jsonSerialize()
-    {
-        return get_object_vars($this);
     }
 }
 
