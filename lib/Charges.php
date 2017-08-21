@@ -2,6 +2,9 @@
 
 namespace Paggi;
 
+use Paggi\model\Charge;
+use Paggi\model\ChargeCatalog;
+
 class Charges
 {
     use Util;
@@ -18,24 +21,29 @@ class Charges
     }
 
     public function charge($body){
-        return $this->_charge($this->restClient,$body);
+        $response = $this->_charge($this->restClient,$body);
+        return new Charge($response);
     }
 
     public function cancel($chargeId)
     {
-        return $this->_cancelCapture($this->restClient,$chargeId,"cancel");
+        $response = $this->_cancelCapture($this->restClient,$chargeId,"cancel");
+        return new Charge($response);
     }
 
     public function capture($chargeId){
-        return $this->_cancelCapture($this->restClient,$chargeId,"capture");
+        $response = $this->_cancelCapture($this->restClient,$chargeId,"capture");
+        return new Charge($response);
     }
 
     public function findAll($query_params = []){
-        return $this->_findAll($this->restClient, $query_params);
+        $response =  $this->_findAll($this->restClient, $query_params);
+        return new ChargeCatalog($response);
     }
 
     public function findById($charge_id){
-        return $this->_findById($this->restClient,$charge_id);
+        $response =  $this->_findById($this->restClient,$charge_id);
+        return new Charge($response);
     }
 
 
