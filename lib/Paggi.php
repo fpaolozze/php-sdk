@@ -40,6 +40,14 @@ class Paggi
 
     }
 
+    static public function setApiKey($api_key = ""){
+        if (is_null($api_key) || strcmp($api_key, "") == 0) {
+            throw new PaggiException(array("type" => "Unauthorized", "message" => "The parameter 'token' cannot be a null or empty string"));
+        }
+        self::$token = $api_key;
+    }
+
+
     /**
      * Get a token value
      * @return Token value
