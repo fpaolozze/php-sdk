@@ -3,8 +3,7 @@
 namespace Paggi;
 
 use Paggi\model\Card;
-use Paggi\PaggiResponse;
-use Paggi\PaggiException;
+use Paggi\model\CardCatalog;
 
 class Cards
 {
@@ -18,7 +17,7 @@ class Cards
      * Find all cards
      * Delete a card
      */
-    use insert, findById,findAll, delete{
+    use insert, findById, findAll, delete {
     }
 
     /**
@@ -37,15 +36,18 @@ class Cards
      */
     public function createCard($params)
     {
-        return $this->_create($this->restClient,$params);
+        $response = $this->_create($this->restClient, $params);
+        return new Card($response);
     }
 
     /** List all cards with pagination and creation date filter
      * @param array $query_params query pagination and filter
      * @return Card object
      */
-    public function findAll($query_params = []){
-        return $this->_findAll($this->restClient, $query_params);
+    public function findAll($query_params = [])
+    {
+        $response = $this->_findAll($this->restClient, $query_params);
+        return new CardCatalog($response);
     }
 
     /**
@@ -53,17 +55,22 @@ class Cards
      * @param $card_id The card id to remove
      * @return Thee removed card object
      */
-    public function delete($card_id){
-        return $this->_delete($this->restClient,$card_id);
+    public function delete($card_id)
+    {
+        $response = $this->_delete($this->restClient, $card_id);
+        return new Card($response);
     }
 
     /** Retrieves a card
      * @param $card_id The card_id to find
      * @return Card object
      */
-    public function findById($card_id){
-        return $this->_findById($this->restClient,$card_id);
+    public function findById($card_id)
+    {
+        $response = $this->_findById($this->restClient, $card_id);
+        return new Card($response);
     }
 
 }
+
 ?>
