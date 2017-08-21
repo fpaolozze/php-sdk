@@ -95,13 +95,13 @@ try {
 
     ## Bank Accounts
 
-    //$bancoAccount = $paggi->bank_accounts()->findById("bank_account_cbf23629-0eb5-47c8-b7ae-cbb9e7360ec8");
+    $bancoAccount = $paggi->bank_accounts()->findById("bank_account_cbf23629-0eb5-47c8-b7ae-cbb9e7360ec8");
     //$bancoAccount = $paggi->bank_accounts()->create($bank_accountParams);
     //$bancoAccount = $paggi->bank_accounts()->findAll();
     //$bancoAccount = $paggi->bank_accounts()->update("bank_account_cbf23629-0eb5-47c8-b7ae-cbb9e7360ec8");
 
 
-    //print_r($bancoAccount->id);
+    print_r($bancoAccount->id);
     //print_r($bancoAccount->result[0]['number']);
 
     //$paggi2 = $paggi->newCall();
