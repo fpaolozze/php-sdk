@@ -15,6 +15,10 @@ class Bank_accounts
 
     private $restClient;
 
+    /**
+     * Bank_accounts constructor.
+     * @param $restClient  The RestClient manage the curl
+     */
     public function __construct($restClient)
     {
         $this->restClient = $restClient;
