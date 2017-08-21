@@ -105,6 +105,8 @@ trait Util
                 return $responseCurl->response;
             case 402:
                 return $responseCurl->response;
+            case 401:
+                return "Not a valid API key";
             default:
                 throw new PaggiException($this->_getError2($responseCurl));
         }
