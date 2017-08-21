@@ -6,7 +6,8 @@ class PaggiResponse{
 
     use \Paggi\ModelBuild;
 
-    public $errors;
+    public $errors = array();
+    public $error;
     public function __construct($resul)
     {
         $this->buildObject($resul);
