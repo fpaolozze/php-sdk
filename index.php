@@ -12,15 +12,16 @@ try{
 
 $paggi = new Paggi( $dev_token,true);
 
+
 $cardParams = array(
     "customer_id" => "customer_74ff4ff0-0d95-4d18-a1c5-187f3fca0df6",
     "name" => "Cartao testando",
-    "number" => "5514967494092156",
-    "month" => "12",
-    "year" => "20",
-    "cvc" => "210");
+    "number" => "4556509599054418",
+    "month" => "10",
+    "year" => "19",
+    "cvc" => "112");
 
-$customerParams = array("name" => "Rafael Felipe", "email" => "rafael@gmail.com", "card" => $cardParams);
+$customerParams = array("name" => "Rafael Felipe de Souza Ramos", "email" => "rafael.felipe1989@gmail.com", "card" => $cardParams);
 
 $intermediaries = array(
     "fee" => 20.0,
@@ -85,6 +86,8 @@ $bank_accountParams = array("customer_id" => "customer_8057b7ef-80e0-4732-a226-7
     //$charge5 = $paggi->charges()->findAll();
 
     //echo($charge1->status);
+    //echo($charge2->status);
+    //echo($charge3->status);
     //echo json_encode($charge5->result[0]['status']);
 
     ## Banks
