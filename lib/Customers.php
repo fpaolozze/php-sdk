@@ -2,6 +2,9 @@
 
 namespace Paggi;
 
+use Paggi\model\Customer;
+use Paggi\model\CustomerCatalog;
+
 class Customers
 {
     use Util;
@@ -19,10 +22,12 @@ class Customers
     /**
      * Store new clients with or without card ad address data
      * @param $parameters Customer data
+     * @return
      */
     public function create($parameters)
     {
-        return $this->_create($this->restClient, $parameters);
+        $response = $this->_create($this->restClient, $parameters);
+        return new Customer($response);
     }
 
     /**
@@ -31,7 +36,8 @@ class Customers
      */
     public function findAll($queryParams = [])
     {
-        return $this->_findAll($this->restClient, $queryParams);
+        $response = $this->_findAll($this->restClient, $queryParams);
+        return new CustomerCatalog($response);
     }
 
     /**
@@ -40,7 +46,8 @@ class Customers
      */
     public function findById($customerId)
     {
-        return $this->_findById($this->restClient, $customerId);
+        $response = $this->_findById($this->restClient, $customerId);
+        return new Customer($response);
     }
 
     /**
@@ -50,7 +57,8 @@ class Customers
      */
     public function update($customerId, $parameters = [])
     {
-        return $this->_update($this->restClient, $customerId, $parameters);
+        $response = $this->_update($this->restClient, $customerId, $parameters);
+        return new Customer($response);
     }
 }
 
