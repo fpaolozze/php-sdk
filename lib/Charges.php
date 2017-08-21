@@ -22,9 +22,9 @@ class Charges
      * @param $restClient
      *
      */
-    public function __construct()// $isParam = true
+    public function __construct($restClient)
     {
-        $this->restClient = new RestClient();
+        $this->restClient = $restClient;
     }
 
     /**

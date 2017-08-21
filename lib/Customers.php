@@ -17,9 +17,9 @@ class Customers
      * Customers constructor. Restclient manage the curl
      * @param $restClient
      */
-    public function __construct()
+    public function __construct($restClient)
     {
-        $this->restClient = new RestClient();
+        $this->restClient = $restClient;
     }
 
     /**

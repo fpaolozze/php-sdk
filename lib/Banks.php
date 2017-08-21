@@ -20,7 +20,7 @@ class Banks{
      */
     public function __construct($restClient)
     {
-        $this->restClient = new RestClient();
+        $this->restClient = $restClient;
     }
 
     /**
