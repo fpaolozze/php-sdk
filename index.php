@@ -12,14 +12,19 @@ $dev_token = "B31DCE74-E768-43ED-86DA-85501612548F";
 try {
 
     $cardParams = array(
-        "customer_id" => "customer_10426432-ac74-48e3-8d7f-8f410e50c938",
-        "name" => "Cartao testando",
-        "number" => "5478991791114004",
+        //"customer_id" => "customer_fe6d6d87-4143-476f-80f7-6c52faa90963",
+        "name" => "Cartao de teste do Rafa",
+        "number" => "4916714249288524",
         "month" => "10",
-        "year" => "19",
-        "cvc" => "123");
+        "year" => "18",
+        "cvc" => "842");
 
-    $customerParams = array("name" => "Rafael Felipe de Souza Ramos", "email" => "rafael.felipe1989@gmail.com", "card" => $cardParams);
+    $customerParams = array(
+        "name" => "Rafa Ramos",
+        "email" => "rafael.felipe@gmail.com",
+        "document"=>"76028147702",
+        "card" => $cardParams
+    );
 
     $intermediaries = array(
         "fee" => 20.0,
@@ -38,25 +43,25 @@ try {
     $intermediaries = array($intermediaries, $intermediaries2);
 
     $chargesSimple = array(
-        "destination" => "customer_bdb43875-a19f-4d0a-a901-720e33cc5745",
-        "amount" => 1000,
-        "customer_id" => "customer_ab32d26f-f396-460e-a2c4-7963543055b4",
-        "intermediaries" => $intermediaries);
+        "customer_id" => "customer_e80fb1cb-7b83-4f31-8b68-bd64ab4e3ac2",
+        "amount" => 1000);
+        //"customer_id" => "customer_fe6d6d87-4143-476f-80f7-6c52faa90963");
+        //"intermediaries" => $intermediaries);
 
-    $bank_accountParams = array("customer_id" => "customer_8057b7ef-80e0-4732-a226-7e024a84b42b",
-        "bank_id" => "bank_30860418-f51d-423f-812a-4d7cb659ac82",
-        "number" => "0123456",
-        "digit" => "1",
-        "branch" => "333",
+    $bank_accountParams = array("customer_id" => "customer_fe6d6d87-4143-476f-80f7-6c52faa90963",
+        "bank_id" => "bank_7c3fd982-4d39-40c3-acd0-38a293ea3fd1",
+        "number" => "12345",
+        "digit" => "2",
+        "branch" => "3343",
         "branch_digit" => "1");
 
 
-    Paggi::setApiKey($dev_token);
-    Paggi::setStaging(false);
+    Paggi::setApiKey($staging_token);
+    Paggi::setStaging(true);
 
     //$card1 = Cards::create($cardParams);
     //$cards = Cards::findAll();
-    //$card2 = Cards::findById($card1->id);
+    //$card2 = Cards::findById("card_98fd0450-7bef-4ff0-a277-cc57a6c216be");
     //$card2 = $card1->delete(); //parametro/objecto
 
     //foreach ($cards->result as $card){
@@ -66,51 +71,55 @@ try {
 
     //print_r($cards->result[0]['brand']);
     //print_r($cards->result[0]['brand']);
-    //print_r($card1->id);
+    //print_r($card2->id);
     //print_r($del->id);
     //print_r($card2);
 
     //$customer = \Paggi\Customers::create($customerParams);
+
     //$customers = \Paggi\Customers::findAll();
-    //$customer = \Paggi\Customers::findById($customer->id);
-    //$customer = $customer->update(array("name"=>"Rafael Ramos"));
+    //$customer = \Paggi\Customers::findById("customer_fe6d6d87-4143-476f-80f7-6c52faa90963");
+    //$customer = $customer->update(array("name"=>"Rafael Felipe de Souza"));
+
+    //print_r($customer->cards[0]['name']);
 
 
     //foreach ($customers->result as $customer) {
         //$customer = \Paggi\Customers::findById($customer->id);
-        //print_r($customer->name);
+        //$c = $customer->update(array("name"=>"Thiago Lima"));
+        //print_r($c->name);
     //}
 
 
-    //print_r($customer->name);
+    //print_r($customer->id);
     //print_r($customers->total);
     //print_r($customers->list[0]['name']);
     //print_r($customer->name);
 
     //$bank_account = \Paggi\Bank_accounts::create($bank_accountParams);
-    //$bank_account1 = \Paggi\Bank_accounts::findById($bank_account->id);
-    //$banks = \Paggi\Bank_accounts::findAll();
-    //$bank_account = $bank_account1->update($bank_accountParams);
+    //$bank_account1 = \Paggi\Bank_accounts::findById("bank_account_20f2e3a1-f153-47e4-9384-1693d5cc830b");
+    //$banks_accounts = \Paggi\Bank_accounts::findAll();
+    //$bank_account1 = $bank_account1->update(array("bank_id"=>"bank_a52f2faa-913f-4c2c-b4f1-c9a050460e5f"));
 
-    //foreach ($banks->result as $bank){
+    //foreach ($banks_accounts->result as $bank_account){
         //$bank_account = $bank->update($bank_accountParams);
-        //print_r($bank_account->number);
+        //print_r($bank_account->bank['name']);
     //}
 
 
-    //print_r($bank_account->branch);
+    //print_r($bank_account1->bank['name']);
     //print_r($banks->result[0]['id']);
     //print_r($bank_account2->id);
 
     //$charge = \Paggi\Charges::create($chargesSimple);
     //$charges = \Paggi\Charges::findAll();
-    //$charge = \Paggi\Charges::findById($charge->id);
+    //$charge = \Paggi\Charges::findById("charge_bbcc55da-ef3b-463a-aa1a-2fe35b4375d9");
     //$charge = $charge->cancel();
     //$charge = $charge->capture();
 
 
     //echo json_encode($charge);
-    //print_r($charge->status);
+    //print_r($charge->id);
 
     //print_r($charges->total);
     /*foreach ($charges->result as $charge){
@@ -122,8 +131,11 @@ try {
     //print_r($charge->status);
 
     //$banks = \Paggi\Banks::findAll();
+
+    //print_r($banks);
+
     //foreach ($banks->result as $bank){
-        //print_r($bank->name);
+    //    print_r($bank->name);
     //}
 
 

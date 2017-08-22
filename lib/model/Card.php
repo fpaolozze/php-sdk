@@ -6,6 +6,7 @@ use Paggi\delete;
 use Paggi\findById;
 use Paggi\insert;
 use Paggi\ModelBuild;
+use Paggi\PaggiException;
 use Paggi\Util;
 
 /**
