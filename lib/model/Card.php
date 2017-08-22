@@ -2,7 +2,11 @@
 
 namespace Paggi\model;
 
+use Paggi\delete;
+use Paggi\findById;
+use Paggi\insert;
 use Paggi\ModelBuild;
+use Paggi\Util;
 
 /**
  * Class Card
@@ -11,6 +15,11 @@ use Paggi\ModelBuild;
 class Card
 {
     use ModelBuild;
+
+    use Util;
+
+    use delete;
+    use findById;
 
     public $customer_id;
     public $name;
@@ -37,6 +46,18 @@ class Card
     {
         $this->buildObject($parameters);
     }
+
+    public function findById(){
+        $res = $this->traitFindById();
+        return new Card($res);
+    }
+
+    public function delete(){
+        $res = $this->traitDelete();
+        return new Card($res);
+    }
+
+
 }
 
 ?>
