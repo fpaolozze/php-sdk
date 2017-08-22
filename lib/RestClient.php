@@ -19,13 +19,17 @@ trait findById
      * @param $id - Resouce ID
      * @return mixed - Exception or a Response
      */
-    protected function _findById($rest, $id)
+    public function traitFindById()
     {
+        $rest = new RestClient();
         $curl = $rest->getCurl();
-        $class = new \ReflectionObject($this); //Clas information
+        $class = new \ReflectionClass(self::class); //Clas information
 
-        $curl->get($rest->getEndpoint($class->getShortName()) . "/" . $id);
-        return $this->manageResponse($curl);
+        $idResource = get_object_vars($this)['id'];
+
+        $curl->get($rest->getEndpoint($class->getShortName()) . "s/" . $idResource);
+
+        return self::manageResponse($curl);
     }
 
 }
