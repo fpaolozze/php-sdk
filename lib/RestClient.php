@@ -89,13 +89,17 @@ trait update
      * @param $params - Resource params
      * @return mixed - Exception or response
      */
-    protected function _update($rest, $id, $params)
+    protected function traitUpdate($id, $params)
     {
+        $rest = new RestClient();
         $curl = $rest->getCurl();
-        $class = new \ReflectionObject($this);
-        $curl->put($rest->getEndpoint($class->getShortName()) . "/" . $id, json_encode($params));
+        $class = new \ReflectionClass(self::class);
 
-        return $this->manageResponse($curl);
+        $idResource = get_object_vars($this)['id'];
+
+        $curl->put($rest->getEndpoint($class->getShortName()) . "s/" . $idResource, json_encode($params));
+
+        return self::manageResponse($curl);
     }
 
 }
