@@ -203,6 +203,8 @@ trait Util
                 return $responseCurl->response;
             case 401:
                 throw new PaggiException("Not a valid API key");
+            case 410:
+                throw new PaggiException(self::_getError($responseCurl));
             default:
                 throw new PaggiException(self::_getError($responseCurl));
         }
@@ -220,14 +222,8 @@ trait Util
         //HttpStatusCode
         $code = $responseCurl->httpStatusCode;
         //Some errors get null - Check it
-        if (!is_null($originalError)) {
-            if (array_key_exists('errors', $originalError)) { //Paggi erros json array
-                //Add the statusCode into the paggi error
-                array_push($originalError['errors'], array("code" => "$code"));
-                $paggiError = $originalError;
-            } else {//Paggi error object json
-                $paggiError = array("error" => $originalError['error'], "code" => $code);
-            }
+        if (!is_null($originalError) && !empty($originalError)) {
+            $paggiError = $originalError;
         } else {
             //Errors null
             $paggiError = array("error" => 'No Content', "code" => $code);
