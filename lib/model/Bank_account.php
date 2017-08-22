@@ -11,7 +11,7 @@ use Paggi\Util;
  * Class BankAccount
  * @package Paggi\Model
  */
-class BankAccount{
+class Bank_account{
 
     use ModelBuild;
 
@@ -40,7 +40,7 @@ class BankAccount{
      */
     public function findById(){
         $response = self::traitFindById();
-        return new BankAccount($response);
+        return new Bank_account($response);
     }
 
     /**
@@ -50,8 +50,8 @@ class BankAccount{
      * @return BankAccount
      */
     public function update($body_params = []){
-        $response = self::update($body_params);
-        return new BankAccount($response);
+        $response = self::traitUpdate($body_params);
+        return new Bank_account($response);
     }
 
 }
