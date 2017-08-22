@@ -64,7 +64,7 @@ class Charges
      * @return ChargeCatalog
      */
     public function findAll($query_params = []){
-        $response =  $this->_findAll($this->restClient, $query_params);
+        $response =  $this->traitFindAll($this->restClient, $query_params);
         return new ChargeCatalog($response);
     }
 
@@ -73,7 +73,7 @@ class Charges
      * @param $charge_id
      * @return Charge
      */
-    public function findById($charge_id){
+    public function traitFindById($charge_id){
         $response =  $this->_findById($this->restClient,$charge_id);
         return new Charge($response);
     }

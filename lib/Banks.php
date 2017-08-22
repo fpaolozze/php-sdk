@@ -28,7 +28,7 @@ class Banks{
      * @return Bank
      */
     public function findAll(){
-        $response =  $this->_findAll($this->restClient,[]);
+        $response =  $this->traitFindAll($this->restClient,[]);
         return new Bank($response);
     }
 
