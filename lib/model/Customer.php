@@ -2,7 +2,11 @@
 
 namespace Paggi\model;
 
+use Paggi\delete;
+use Paggi\findById;
 use Paggi\ModelBuild;
+use Paggi\update;
+use Paggi\Util;
 
 /**
  * Class Customer
@@ -11,6 +15,10 @@ use Paggi\ModelBuild;
 class Customer
 {
     use ModelBuild;
+
+    use Util;
+
+    use findById, update;
 
     public $phone;
     public $name;
@@ -28,6 +36,21 @@ class Customer
     {
         $this->buildObject($response);
     }
+
+
+    public function findById()
+    {
+        $response = $this->traitFindById();
+        return new Customer($response);
+    }
+
+
+    public function update($parameters = [])
+    {
+        $response = $this->traitUpdate($parameters);
+        return new Customer($response);
+    }
+
 }
 
 ?>
