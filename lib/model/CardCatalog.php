@@ -9,11 +9,11 @@ namespace Paggi\model;
 class CardCatalog{
 
     public $total;
-    public $result = array();
+    public $list = array();
 
     public function __construct($response)
     {
-        $this->result = $response;
+        $this->list = $response;
         $this->total = sizeof($response);
     }
 }
