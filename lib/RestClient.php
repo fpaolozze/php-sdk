@@ -19,15 +19,13 @@ trait findById
      * @param $id - Resouce ID
      * @return mixed - Exception or a Response
      */
-    public function traitFindById()
+    public function traitFindById($id)
     {
         $rest = new RestClient();
         $curl = $rest->getCurl();
         $class = new \ReflectionClass(self::class); //Clas information
 
-        $idResource = get_object_vars($this)['id'];
-
-        $curl->get($rest->getEndpoint($class->getShortName()) . "s/" . $idResource);
+        $curl->get($rest->getEndpoint($class->getShortName()) . "/" . $id);
 
         return self::manageResponse($curl);
     }
@@ -133,7 +131,7 @@ trait delete
 
         $curl->delete($rest->getEndpoint($class->getShortName()) . "s/" . $idResource);
 
-        return $this->manageResponse($curl);
+        return self::manageResponse($curl);
     }
 }
 
@@ -150,14 +148,15 @@ trait charge_
      * @param $params - Charge params
      * @return mixed - Exception or Charge response
      */
-    protected function _charge($rest, $params)
+    protected function _charge($params)
     {
+        $rest = new RestClient();
         $curl = $rest->getCurl();
-        $class = new \ReflectionObject($this);
+        $class = new \ReflectionClass(self::class);
 
         $curl->post($rest->getEndpoint($class->getShortName()), json_encode($params));
 
-        return $this->manageResponse($curl);
+        return self::manageResponse($curl);
     }
 
     /**
@@ -167,13 +166,16 @@ trait charge_
      * @param $resource - CANCEL or CAPTURE
      * @return mixed - Exception or Response charge
      */
-    protected function _cancelCapture($rest, $chargeId, $resource)
+    protected function _cancelCapture($resource)
     {
+        $rest = new RestClient();
         $curl = $rest->getCurl();
-        $class = new \ReflectionObject($this);
+        $class = new \ReflectionClass(self::class);
 
-        $curl->put($rest->getEndpoint($class->getShortName() . "/" . $chargeId . "/" . $resource));
-        return $this->manageResponse($curl);
+        $idResource = get_object_vars($this)['id'];
+
+        $curl->put($rest->getEndpoint($class->getShortName() . "s/" . $idResource . "/" .$resource));
+        return self::manageResponse($curl);
     }
 }
 

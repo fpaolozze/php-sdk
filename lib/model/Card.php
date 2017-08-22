@@ -19,7 +19,6 @@ class Card
     use Util;
 
     use delete;
-    use findById;
 
     public $customer_id;
     public $name;
@@ -45,11 +44,6 @@ class Card
     public function __construct($parameters)
     {
         $this->buildObject($parameters);
-    }
-
-    public function findById(){
-        $res = $this->traitFindById();
-        return new Card($res);
     }
 
     public function delete(){

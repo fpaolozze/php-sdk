@@ -11,7 +11,7 @@ class Cards
 
     use Util; //The methods uses methods from Util
 
-    use insert, findAll;
+    use insert, findAll, findById;
 
 
 
@@ -34,6 +34,11 @@ class Cards
     {
         $response = self::traitFindAll($query_params);
         return new CardCatalog($response);
+    }
+
+    static public function findById($card_id){
+        $res = self::traitFindById($card_id);
+        return new Card($res);
     }
 
 }

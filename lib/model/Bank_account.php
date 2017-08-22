@@ -17,7 +17,7 @@ class Bank_account{
 
     use Util;
 
-    use update, findById;
+    use update;
 
     public $id;
     public $customer_id;
@@ -30,17 +30,6 @@ class Bank_account{
     public function __construct($response)
     {
         $this->buildObject($response);
-    }
-
-
-    /**
-     * Retrieves a Bank account by id
-     * @param Bank account id
-     * @return BankAccount
-     */
-    public function findById(){
-        $response = self::traitFindById();
-        return new Bank_account($response);
     }
 
     /**

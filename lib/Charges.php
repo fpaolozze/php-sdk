@@ -13,8 +13,6 @@ class Charges
     use findAll;
     use findById;
     use charge_;
-    use insert;
-
 
     /**
      * Charging an user using user's default card
@@ -23,27 +21,6 @@ class Charges
      */
     static public function create($body){
         $response = self::_charge($body);
-        return new Charge($response);
-    }
-
-    /**
-     * Used to manueally cancel any charge or pre authorization that wasn't already cancelled
-     * @param $chargeId
-     * @return Charge model
-     */
-    static public function cancel()
-    {
-        $response = self::_cancelCapture("cancel");
-        return new Charge($response);
-    }
-
-    /**
-     * Captures an existing pre authorization
-     * @param $chargeId
-     * @return Charge
-     */
-    static public function capture(){
-        $response = self::_cancelCapture("capture");
         return new Charge($response);
     }
 
@@ -59,13 +36,13 @@ class Charges
 
     /**
      * Retrieves a charge
-     * @param $charge_id
      * @return Charge
      */
-    static public function traitFindById(){
-        $response =  self::_findById();
+    static public function findById($id){
+        $response =  self::traitFindById($id);
         return new Charge($response);
     }
+
 
 
 }

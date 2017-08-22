@@ -15,20 +15,11 @@ class Banks{
     private $restClient;
 
     /**
-     * Banks constructor. Inisitalize the rest client, for manage the curl
-     * @param $restClient
-     */
-    public function __construct($restClient)
-    {
-        $this->restClient = $restClient;
-    }
-
-    /**
      * List all banks
      * @return Bank
      */
-    public function findAll(){
-        $response =  $this->traitFindAll($this->restClient,[]);
+   static public function findAll($query_params = []){
+        $response =  self::traitFindAll($query_params);
         return new Bank($response);
     }
 

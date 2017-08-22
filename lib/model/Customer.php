@@ -18,7 +18,7 @@ class Customer
 
     use Util;
 
-    use findById, update;
+    use update;
 
     public $phone;
     public $name;
@@ -36,14 +36,6 @@ class Customer
     {
         $this->buildObject($response);
     }
-
-
-    public function findById()
-    {
-        $response = $this->traitFindById();
-        return new Customer($response);
-    }
-
 
     public function update($parameters = [])
     {

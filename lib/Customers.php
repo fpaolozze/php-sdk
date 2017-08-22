@@ -9,7 +9,7 @@ class Customers
 {
     use Util; //The methods uses methods from Util
 
-    use findAll, insert; //Actions
+    use findAll, insert, findById; //Actions
 
 
     /**
@@ -32,6 +32,12 @@ class Customers
     {
         $response = self::traitFindAll($queryParams);
         return new CustomerCatalog($response);
+    }
+
+    static public function findById($id)
+    {
+        $response = self::traitFindById($id);
+        return new Customer($response);
     }
 
 

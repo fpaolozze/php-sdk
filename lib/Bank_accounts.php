@@ -11,7 +11,7 @@ class Bank_accounts
     use Util;
 
     //Actions for this resource
-    use insert, findAll;
+    use insert, findAll, findById;
 
     /**
      * Create a new account of customer
@@ -33,6 +33,17 @@ class Bank_accounts
         $response = self::traitFindAll($query_params);
         return new BankAccountCatalog($response);
     }
+
+    /**
+     * Retrieves a Bank account by id
+     * @param Bank account id
+     * @return BankAccount
+     */
+    static public function findById($id){
+        $response = self::traitFindById($id);
+        return new Bank_account($response);
+    }
+
 }
 
 ?>
