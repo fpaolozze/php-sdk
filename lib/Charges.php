@@ -15,25 +15,14 @@ class Charges
     use charge_;
     use insert;
 
-    private $restClient;
-
-    /**
-     * Charges constructor. Receive the RestClient manage the curl
-     * @param $restClient
-     *
-     */
-    public function __construct($restClient)
-    {
-        $this->restClient = $restClient;
-    }
 
     /**
      * Charging an user using user's default card
      * @param $body Body charge params
      * @return Charge model
      */
-    public function charge($body){
-        $response = $this->_charge($this->restClient,$body);
+    static public function create($body){
+        $response = self::_charge($body);
         return new Charge($response);
     }
 
@@ -42,9 +31,9 @@ class Charges
      * @param $chargeId
      * @return Charge model
      */
-    public function cancel($chargeId)
+    static public function cancel()
     {
-        $response = $this->_cancelCapture($this->restClient,$chargeId,"cancel");
+        $response = self::_cancelCapture("cancel");
         return new Charge($response);
     }
 
@@ -53,8 +42,8 @@ class Charges
      * @param $chargeId
      * @return Charge
      */
-    public function capture($chargeId){
-        $response = $this->_cancelCapture($this->restClient,$chargeId,"capture");
+    static public function capture(){
+        $response = self::_cancelCapture("capture");
         return new Charge($response);
     }
 
@@ -63,8 +52,8 @@ class Charges
      * @param array $query_params for pagination
      * @return ChargeCatalog
      */
-    public function findAll($query_params = []){
-        $response =  $this->traitFindAll($this->restClient, $query_params);
+    static public function findAll($query_params = []){
+        $response =  self::traitFindAll( $query_params);
         return new ChargeCatalog($response);
     }
 
@@ -73,8 +62,8 @@ class Charges
      * @param $charge_id
      * @return Charge
      */
-    public function traitFindById($charge_id){
-        $response =  $this->_findById($this->restClient,$charge_id);
+    static public function traitFindById(){
+        $response =  self::_findById();
         return new Charge($response);
     }
 
