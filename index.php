@@ -59,6 +59,10 @@ try {
     //$card2 = Cards::findById($card1->id);
     //$card2 = $card1->delete(); //parametro/objecto
 
+    //foreach ($cards->result as $card){
+    //$card2 = Cards::findById($card->id);
+    //print_r($card2->brand);
+    //}
 
     //print_r($cards->result[0]['brand']);
     //print_r($cards->result[0]['brand']);
@@ -71,6 +75,12 @@ try {
     //$customer = \Paggi\Customers::findById($customer->id);
     //$customer = $customer->update(array("name"=>"Rafael Ramos"));
 
+    //foreach ($customers->result as $customer) {
+        //$customer = \Paggi\Customers::findById($customer->id);
+        //print_r($customer->name);
+    //}
+
+
     //print_r($customer->name);
     //print_r($customers->total);
     //print_r($customers->list[0]['name']);
@@ -81,28 +91,39 @@ try {
     //$banks = \Paggi\Bank_accounts::findAll();
     //$bank_account = $bank_account1->update($bank_accountParams);
 
+    //foreach ($banks->result as $bank){
+        //$bank_account = $bank->update($bank_accountParams);
+        //print_r($bank_account->number);
+    //}
+
 
     //print_r($bank_account->branch);
     //print_r($banks->result[0]['id']);
     //print_r($bank_account2->id);
 
-    $charge = \Paggi\Charges::create($chargesSimple);
-    $charges = \Paggi\Charges::findAll();
-    $charge = \Paggi\Charges::findById($charge->id);
+    //$charge = \Paggi\Charges::create($chargesSimple);
+    //$charges = \Paggi\Charges::findAll();
+    //$charge = \Paggi\Charges::findById($charge->id);
+    //$charge = $charge->cancel();
+    //$charge = $charge->capture();
 
-    $charge = $charge->cancel();
-
-    $charge = $charge->capture();
 
     //echo json_encode($charge);
     //print_r($charge->status);
-    //print_r($charges->result[0]['id']);
+
+    //print_r($charges->total);
+    /*foreach ($charges->result as $charge){
+        $charge = $charge->cancel();
+        print_r($charge->status);
+    }*/
+
+
     //print_r($charge->status);
 
     //$banks = \Paggi\Banks::findAll();
-    //print_r($banks->list[0]->name);
-
-
+    //foreach ($banks->result as $bank){
+        //print_r($bank->name);
+    //}
 
 
 } catch (Exception $ex) {

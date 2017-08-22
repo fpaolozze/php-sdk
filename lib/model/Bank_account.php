@@ -1,6 +1,6 @@
 <?php
 
-namespace Paggi\Model;
+namespace Paggi\model;
 
 use Paggi\findById;
 use Paggi\ModelBuild;

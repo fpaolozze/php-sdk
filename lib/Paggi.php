@@ -2,8 +2,6 @@
 
 namespace Paggi;
 
-use Paggi\model\Charge;
-
 include 'lib/RestClient.php';
 
 /**

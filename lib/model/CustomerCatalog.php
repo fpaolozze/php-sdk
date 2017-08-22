@@ -3,6 +3,7 @@
 namespace Paggi\model;
 
 use Paggi\ModelBuild;
+use Paggi\model\Customer;
 
 /**
  * Class CustomerCatalog - has a list of Customers
@@ -13,14 +14,17 @@ class CustomerCatalog
     use ModelBuild;
 
     public $total = 0;
-    private $result = array();
-    public $list = array();
+    public $result = array();
 
     public function __construct($response)
     {
-        $this->buildObject($response);
+        $resultados = $response['result'];
 
-        $this->list = $this->result;
+        $this->total = sizeof($resultados);
+        foreach ($resultados as $value) {
+            $charge = new Customer($value);
+            array_push($this->result,$charge);
+        }
     }
 }
 

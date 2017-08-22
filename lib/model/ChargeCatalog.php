@@ -1,14 +1,16 @@
 <?php
 
-namespace Paggi\Model;
+namespace Paggi\model;
 
 use Paggi\ModelBuild;
+use Paggi\model\Charge;
 
 /**
  * Class ChargeCatalog - has a list of charges
  * @package Paggi\Model
  */
-class ChargeCatalog{
+class ChargeCatalog
+{
 
     use ModelBuild;
 
@@ -17,7 +19,13 @@ class ChargeCatalog{
 
     public function __construct($response)
     {
-        $this->buildObject($response);
+        $resultados = $response['result'];
+
+        $this->total = sizeof($resultados);
+        foreach ($resultados as $value) {
+            $charge = new Charge($value);
+            array_push($this->result,$charge);
+        }
     }
 }
 

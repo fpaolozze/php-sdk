@@ -9,7 +9,7 @@ namespace Paggi\model;
 class Bank
 {
     public $total = 0;
-    public $list = array();
+    public $result = array();
 
     public function __construct($response)
     {
@@ -19,7 +19,7 @@ class Bank
                 $banco = new BankObj();
                 $banco->name = $objeto['name'];
                 $banco->id = $objeto['id'];
-                array_push($this->list, $banco);
+                array_push($this->result, $banco);
             }
         }
     }
