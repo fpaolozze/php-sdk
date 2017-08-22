@@ -96,7 +96,7 @@ trait update
      * @param $params - Resource params
      * @return mixed - Exception or response
      */
-    protected function traitUpdate($id, $params)
+    protected function traitUpdate($params)
     {
         $rest = new RestClient();
         $curl = $rest->getCurl();
