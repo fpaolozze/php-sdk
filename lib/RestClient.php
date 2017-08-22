@@ -112,12 +112,15 @@ trait delete
      * @param $id - ID resource
      * @return mixed - Exception or Response
      */
-    protected function _delete($rest, $id)
+    public function traitDelete()
     {
+        $rest = new RestClient();
         $curl = $rest->getCurl();
-        $class = new \ReflectionObject($this);
+        $class = new \ReflectionClass(self::class);
 
-        $curl->delete($rest->getEndpoint($class->getShortName()) . "/" . $id);
+        $idResource = get_object_vars($this)['id'];
+
+        $curl->delete($rest->getEndpoint($class->getShortName()) . "s/" . $idResource);
 
         return $this->manageResponse($curl);
     }
