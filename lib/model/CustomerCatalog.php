@@ -18,12 +18,14 @@ class CustomerCatalog
 
     public function __construct($response)
     {
-        $resultados = $response['result'];
+        if(!is_null($response)) {
+            $resultados = $response['result'];
 
-        $this->total = sizeof($resultados);
-        foreach ($resultados as $value) {
-            $charge = new Customer($value);
-            array_push($this->result,$charge);
+            $this->total = sizeof($resultados);
+            foreach ($resultados as $value) {
+                $charge = new Customer($value);
+                array_push($this->result, $charge);
+            }
         }
     }
 }

@@ -18,12 +18,14 @@ class BankAccountCatalog{
 
     public function __construct($response)
     {
-        $resultados = $response['result'];
+        if(!is_null($response)) {
+            $resultados = $response['result'];
 
-        $this->total = sizeof($resultados);
-        foreach ($resultados as $value) {
-            $bank_account = new Bank_account($value);
-            array_push($this->result,$bank_account);
+            $this->total = sizeof($resultados);
+            foreach ($resultados as $value) {
+                $bank_account = new Bank_account($value);
+                array_push($this->result, $bank_account);
+            }
         }
     }
 

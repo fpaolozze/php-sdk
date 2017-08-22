@@ -10,17 +10,19 @@ use Paggi\model\Card;
  */
 class CardCatalog{
 
-    public $total;
+    public $total = 0;
     public $result = array();
 
     public function __construct($response)
     {
-        $this->total = sizeof($response);
+        if(!is_null($response)) {
+            $this->total = sizeof($response);
 
-        $this->total = sizeof($response);
-        foreach ($response as $value) {
-            $card = new Card($value);
-            array_push($this->result,$card);
+            $this->total = sizeof($response);
+            foreach ($response as $value) {
+                $card = new Card($value);
+                array_push($this->result, $card);
+            }
         }
     }
 }

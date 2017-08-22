@@ -14,17 +14,19 @@ class ChargeCatalog
 
     use ModelBuild;
 
-    public $total;
+    public $total = 0;
     public $result = array();
 
     public function __construct($response)
     {
-        $resultados = $response['result'];
+        if(!is_null($response)) {
+            $resultados = $response['result'];
 
-        $this->total = sizeof($resultados);
-        foreach ($resultados as $value) {
-            $charge = new Charge($value);
-            array_push($this->result,$charge);
+            $this->total = sizeof($resultados);
+            foreach ($resultados as $value) {
+                $charge = new Charge($value);
+                array_push($this->result, $charge);
+            }
         }
     }
 }

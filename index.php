@@ -75,6 +75,7 @@ try {
     //$customer = \Paggi\Customers::findById($customer->id);
     //$customer = $customer->update(array("name"=>"Rafael Ramos"));
 
+
     //foreach ($customers->result as $customer) {
         //$customer = \Paggi\Customers::findById($customer->id);
         //print_r($customer->name);
