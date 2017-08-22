@@ -70,14 +70,16 @@ trait insert
      * @param $params - Resource paramns
      * @return mixed - Exception or response
      */
-    protected function _create($rest, $params)
+    static protected function traitCreate($params)
     {
+        $rest = new RestClient();
         $curl = $rest->getCurl();
-        $class = new \ReflectionObject($this);
+        $class = new \ReflectionClass(self::class);
 
         $curl->post($rest->getEndpoint($class->getShortName()), json_encode($params));
 
-        return $this->manageResponse($curl);
+        //return $class->newInstanceArgs($curl->response);
+        return self::manageResponse($curl);
     }
 }
 
@@ -200,7 +202,7 @@ trait Util
             case 401:
                 throw new PaggiException("Not a valid API key");
             default:
-                throw new PaggiException($this->_getError($responseCurl));
+                throw new PaggiException(self::_getError($responseCurl));
         }
     }
 
