@@ -13,11 +13,14 @@ class CustomerCatalog
     use ModelBuild;
 
     public $total = 0;
-    public $result = array();
+    private $result = array();
+    public $list = array();
 
     public function __construct($response)
     {
         $this->buildObject($response);
+
+        $this->list = $this->result;
     }
 }
 
