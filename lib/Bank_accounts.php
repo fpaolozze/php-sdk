@@ -2,7 +2,7 @@
 
 namespace Paggi;
 
-use Paggi\model\BankAccount;
+use Paggi\model\Bank_account;
 use Paggi\model\BankAccountCatalog;
 
 class Bank_accounts
@@ -13,17 +13,6 @@ class Bank_accounts
     //Actions for this resource
     use insert, findAll;
 
-    private $restClient;
-
-    /**
-     * Bank_accounts constructor.
-     * @param $restClient  The RestClient manage the curl
-     */
-    public function __construct($rest)
-    {
-        $this->restClient = $rest;
-    }
-
     /**
      * Create a new account of customer
      * @param $params
@@ -31,7 +20,7 @@ class Bank_accounts
      */
     static public function create($params){
         $response = self::traitCreate($params);
-        return new BankAccount($response);
+        return new Bank_account($response);
     }
 
     /**
