@@ -4,50 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fed822b5df7beca63791af5f1ab17242",
+    "content-hash": "20b8a4a2c3d253b57dea10073c3c12b9",
     "packages": [
-        {
-            "name": "netresearch/jsonmapper",
-            "version": "v1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cweiske/jsonmapper.git",
-                "reference": "b94ffe5b237a697253f06f5a57d9b22292bfffb3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/b94ffe5b237a697253f06f5a57d9b22292bfffb3",
-                "reference": "b94ffe5b237a697253f06f5a57d9b22292bfffb3",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.2.*",
-                "squizlabs/php_codesniffer": "~1.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "JsonMapper": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "OSL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Christian Weiske",
-                    "email": "cweiske@cweiske.de",
-                    "homepage": "http://github.com/cweiske/jsonmapper/",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Map nested JSON structures onto PHP classes",
-            "time": "2017-08-14T07:26:24+00:00"
-        },
         {
             "name": "php-curl-class/php-curl-class",
             "version": "7.3.1",
