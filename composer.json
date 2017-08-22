@@ -1,4 +1,15 @@
 {
+    "name": "paggi/sdk",
+    "description": "Paggi PHP SDK",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Paggi IT Team",
+            "email": "it@paggi.com"
+        }
+    ],
+    "minimum-stability": "stable",
     "require": {
         "php-curl-class/php-curl-class": "^7.3"
     },
