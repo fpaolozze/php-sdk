@@ -46,14 +46,15 @@ trait findAll
      * @param $query_params - QueryParams for filter and pagination
      * @return mixed - Exception or response
      */
-    protected function _findAll($rest, $query_params)
+    protected function traitFindAll($query_params)
     {
+        $rest = new RestClient();
         $curl = $rest->getCurl();
-        $class = new \ReflectionObject($this);
+        $class = new \ReflectionClass(self::class);
 
         $curl->get($rest->getEndpoint($class->getShortName()), $query_params);
 
-        return $this->manageResponse($curl);
+        return self::manageResponse($curl);
     }
 }
 
