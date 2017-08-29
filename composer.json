@@ -20,6 +20,7 @@
     }
   ],
   "require": {
+    "doctrine/inflector": "^1.2",
     "php-curl-class/php-curl-class": "^7.3"
   },
   "autoload": {
