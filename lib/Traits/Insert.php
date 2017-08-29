@@ -5,8 +5,8 @@ namespace Paggi\Traits;
 use \Paggi\RestClient;
 
 /**
- * Trait insert - Insert/Create a new resource
- * @package Paggi
+ * Trait Insert - Insert/Create a new resource
+ * @package Paggi\Traits
  */
 trait Insert
 {

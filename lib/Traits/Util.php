@@ -6,7 +6,7 @@ use \Paggi\PaggiException;
 
 /**
  * Trait Util - Funtions util for the requests
- * @package Paggi
+ * @package Paggi\Traits
  */
 trait Util
 {

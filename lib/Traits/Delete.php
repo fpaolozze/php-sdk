@@ -6,7 +6,7 @@ use \Paggi\RestClient;
 
 /**
  * Trait Delete - Delete a resource
- * @package Paggi
+ * @package Paggi\Traits
  */
 trait Delete
 {

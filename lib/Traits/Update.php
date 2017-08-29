@@ -5,8 +5,8 @@ namespace Paggi\Traits;
 use \Paggi\RestClient;
 
 /**
- * Trait update - Update a resource
- * @package Paggi
+ * Trait Update - Update a resource
+ * @package Paggi\Traits
  */
 trait Update
 {

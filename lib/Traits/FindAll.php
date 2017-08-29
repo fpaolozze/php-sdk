@@ -5,8 +5,8 @@ namespace Paggi\Traits;
 use \Paggi\RestClient;
 
 /**
- * Trait findAll - Find all resources
- * @package Paggi
+ * Trait FindAll - Find all resources
+ * @package Paggi\Traits
  */
 trait FindAll
 {

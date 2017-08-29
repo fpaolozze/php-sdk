@@ -6,7 +6,7 @@ use \Paggi\RestClient;
 
 /**
  * Trait FindById - Find a resource by ID
- * @package Paggi
+ * @package Paggi\Traits
  */
 trait FindById
 {
