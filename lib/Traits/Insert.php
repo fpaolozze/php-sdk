@@ -16,7 +16,7 @@ trait Insert
      * @param $params - Resource paramns
      * @return mixed - Exception or response
      */
-    static protected function traitCreate($params)
+    static protected function create($params)
     {
         $rest = new RestClient();
         $curl = $rest->getCurl();

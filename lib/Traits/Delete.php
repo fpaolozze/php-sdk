@@ -16,7 +16,7 @@ trait Delete
      * @param $id - ID resource
      * @return mixed - Exception or Response
      */
-    public function traitDelete()
+    public function delete()
     {
         $rest = new RestClient();
         $curl = $rest->getCurl();

@@ -15,7 +15,7 @@ trait FindById
      * @param $id - Resouce ID
      * @return mixed - Exception or a Response
      */
-    public function traitFindById($id)
+    public function findById($id)
     {
         $rest = new RestClient();
         $curl = $rest->getCurl();
