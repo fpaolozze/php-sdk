@@ -5,10 +5,10 @@ namespace Paggi\Traits;
 use \Paggi\RestClient;
 
 /**
- * Trait Insert - Insert/Create a new resource
+ * Trait Create - Create/Create a new resource
  * @package Paggi\Traits
  */
-trait Insert
+trait Create
 {
     /**
      * POST METHOD
