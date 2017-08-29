@@ -5,6 +5,8 @@ namespace Paggi;
 //Curl for manager the HTTP requests
 use \Curl\Curl;
 
+use Doctrine\Common\Inflector\Inflector;
+
 /**
  * Class RestClient - This class manager the requests
  * @package Paggi
@@ -48,12 +50,15 @@ class RestClient
 
     /**
      * Get the Endpoint [banks - bank-accounts - customer - cards - charges]
+     *
      * @param $resource - The resource used [banks - bank-accounts - customer - cards - charges]
      * @return string [banks - bank-accounts - customer - cards - charges]
      */
     public function getEndpoint($resource)
     {
-        return strtolower($this->endPoint . str_replace('\\', '/', $resource));
+        $entity = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', Inflector::pluralize($resource)));
+
+        return strtolower($this->endPoint . $entity);
     }
 
     /**
