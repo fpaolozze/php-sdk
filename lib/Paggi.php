@@ -2,8 +2,6 @@
 
 namespace Paggi;
 
-include 'lib/RestClient.php';
-
 /**
  * Class Paggi manage all resoucers and API values
  * @package Paggi

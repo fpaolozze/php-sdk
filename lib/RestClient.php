@@ -2,9 +2,6 @@
 
 namespace Paggi;
 
-//AutoLoad with the files to inclue
-require 'vendor/autoload.php';
-
 //Curl for manager the HTTP requests
 use \Curl\Curl;
 
