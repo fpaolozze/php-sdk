@@ -17,7 +17,7 @@ trait Update
      * @param $params - Resource params
      * @return mixed - Exception or response
      */
-    protected function update($params)
+    public function update($params)
     {
         $rest = new RestClient();
         $curl = $rest->getCurl();
@@ -25,7 +25,7 @@ trait Update
 
         $idResource = get_object_vars($this)['id'];
 
-        $curl->put($rest->getEndpoint($class->getShortName()) . "s/" . $idResource, json_encode($params));
+        $curl->put($rest->getEndpoint($class->getShortName()) . "/" . $idResource, json_encode($params));
 
         return self::manageResponse($curl);
     }

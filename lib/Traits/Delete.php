@@ -24,7 +24,7 @@ trait Delete
 
         $idResource = get_object_vars($this)['id'];
 
-        $curl->delete($rest->getEndpoint($class->getShortName()) . "s/" . $idResource);
+        $curl->delete($rest->getEndpoint($class->getShortName()) . "/" . $idResource);
 
         return self::manageResponse($curl);
     }

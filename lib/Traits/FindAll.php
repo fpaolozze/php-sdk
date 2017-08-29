@@ -16,7 +16,7 @@ trait FindAll
      * @param $query_params - QueryParams for filter and pagination
      * @return mixed - Exception or response
      */
-    protected function findAll($query_params)
+    public static function findAll($query_params = [])
     {
         $rest = new RestClient();
         $curl = $rest->getCurl();

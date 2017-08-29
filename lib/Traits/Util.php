@@ -18,13 +18,25 @@ trait Util
      */
     protected function manageResponse($responseCurl)
     {
-        //Switch the HTTPStatusCode
+        $reflectedClass = new \ReflectionClass(self::class);
+        $reflectedClass = $reflectedClass->name;
+
+        $responseBody = $responseCurl->response;
+
         switch ($responseCurl->httpStatusCode) {
             case 200:
-                //STATUS APROVED OR OTHER OK
-                return $responseCurl->response;
+                if(array_key_exists('result', $responseBody) && array_key_exists('total', $responseBody)) {
+                  $result = array();
+
+                  foreach($responseBody['result'] as $resultItem) {
+                    array_push($result, new $reflectedClass($resultItem));
+                  }
+
+                  return array('result' => $result, 'total' => $responseBody['total']);
+                }
+
+                return new $reflectedClass($responseCurl->response);
             case 402:
-                //STATUS DECLINED
                 return $responseCurl->response;
             case 401:
                 throw new PaggiException("Not a valid API key");
