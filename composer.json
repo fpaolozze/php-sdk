@@ -1,28 +1,28 @@
 {
-    "name": "paggi/sdk",
-    "version": "1.0.0",
-    "homepage": "https://docs.paggi.com",
-    "description": "Paggi PHP SDK",
-    "type": "library",
-    "keywords": [
-      "paggi.com",
-      "paggi",
-      "payments",
-      "pagamentos",
-      "payments brazil",
-      "pagamento brasil"
-    ],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Paggi IT Team",
-            "email": "it@paggi.com"
-        }
-    ],
-    "require": {
-        "php-curl-class/php-curl-class": "^7.3"
-    },
-    "autoload": {
-        "psr-4": {"Paggi\\": "lib/"}
+  "name": "paggi/sdk",
+  "version": "1.0.0",
+  "homepage": "https://docs.paggi.com",
+  "description": "Paggi PHP SDK",
+  "type": "library",
+  "keywords": [
+    "paggi.com",
+    "paggi",
+    "payments",
+    "pagamentos",
+    "payments brazil",
+    "pagamento brasil"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Paggi IT Team",
+      "email": "it@paggi.com"
     }
+  ],
+  "require": {
+    "php-curl-class/php-curl-class": "^7.3"
+  },
+  "autoload": {
+    "psr-4": {"Paggi\\": "lib/"}
+  }
 }
