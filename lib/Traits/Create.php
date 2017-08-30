@@ -3,7 +3,6 @@
 namespace Paggi\Traits;
 
 use \Paggi\RestClient;
-use \Paggi\Traits\Util;
 
 /**
  * Trait Create - Create/Create a new resource
@@ -11,8 +10,6 @@ use \Paggi\Traits\Util;
  * */
 trait Create
 {
-    use Util;
-
     /**
      * POST METHOD
      *

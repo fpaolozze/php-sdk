@@ -3,7 +3,6 @@
 namespace Paggi\Traits;
 
 use \Paggi\RestClient;
-use \Paggi\Traits\Util;
 
 /**
  * Trait FindAll - Find all resources
@@ -11,8 +10,6 @@ use \Paggi\Traits\Util;
  */
 trait FindAll
 {
-    use Util;
-
     /**
      * GET METHOD
      * @param $rest - The RestClient object

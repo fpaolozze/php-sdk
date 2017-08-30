@@ -18,10 +18,8 @@ trait Util
      */
     protected function manageResponse($responseCurl)
     {
-        $reflectedClass = new \ReflectionClass(self::class);
-        $reflectedClass = $reflectedClass->name;
-
-        $responseBody = $responseCurl->response;
+        $reflectedClass = get_called_class();
+        $responseBody   = $responseCurl->response;
 
         switch ($responseCurl->httpStatusCode) {
             case 200:
@@ -37,7 +35,7 @@ trait Util
 
                 return new $reflectedClass($responseCurl->response);
             case 402:
-                return $responseCurl->response;
+                return new $reflectedClass($responseCurl->response);
             case 401:
                 throw new PaggiException("Not a valid API key");
             case 410:
