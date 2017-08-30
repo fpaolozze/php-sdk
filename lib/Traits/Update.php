@@ -3,6 +3,7 @@
 namespace Paggi\Traits;
 
 use \Paggi\RestClient;
+use \Paggi\Traits\Util;
 
 /**
  * Trait Update - Update a resource
@@ -10,6 +11,8 @@ use \Paggi\RestClient;
  */
 trait Update
 {
+    use Util;
+
     /**
      * PUT METHOD
      * @param $rest - The RestClient object

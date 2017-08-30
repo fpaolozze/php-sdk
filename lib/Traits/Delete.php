@@ -3,6 +3,7 @@
 namespace Paggi\Traits;
 
 use \Paggi\RestClient;
+use \Paggi\Traits\Util;
 
 /**
  * Trait Delete - Delete a resource
@@ -10,6 +11,8 @@ use \Paggi\RestClient;
  */
 trait Delete
 {
+    use Util;
+
     /**
      * DELETE METHOD
      * @param $rest - The RestClient object

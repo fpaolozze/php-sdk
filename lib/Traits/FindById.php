@@ -3,6 +3,7 @@
 namespace Paggi\Traits;
 
 use \Paggi\RestClient;
+use \Paggi\Traits\Util;
 
 /**
  * Trait FindById - Find a resource by ID
@@ -10,6 +11,8 @@ use \Paggi\RestClient;
  */
 trait FindById
 {
+    use Util;
+
     /**
      * @param $rest - The RestClient object
      * @param $id - Resouce ID
