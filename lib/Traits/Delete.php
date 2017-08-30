@@ -26,6 +26,6 @@ trait Delete
 
         $curl->delete($rest->getEndpoint($class->getShortName()) . "/" . $idResource);
 
-        return self::manageResponse($curl);
+        return true;
     }
 }
