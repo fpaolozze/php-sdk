@@ -1,6 +1,5 @@
 {
   "name": "paggi/sdk",
-  "version": "1.1.1",
   "homepage": "https://docs.paggi.com",
   "description": "Paggi PHP SDK",
   "type": "library",
