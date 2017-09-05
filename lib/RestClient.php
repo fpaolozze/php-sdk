@@ -32,6 +32,15 @@ class RestClient
         $this->curl->setDefaultJsonDecoder($assoc = true);
         $this->curl->setHeader('Content-Type', 'application/json; charset=utf-8');
         $this->curl->setDefaultTimeout();
+
+        if(array_key_exists('X_FORWARDED_FOR', $_SERVER))
+        {
+          $this->curl->setHeader('X-Forwarded-For', $_SERVER['X_FORWARDED_FOR']);
+        }
+        else
+        {
+          $this->curl->setHeader('X-Forwarded-For', $_SERVER['REMOTE_ADDR']);
+        }
     }
 
     /**
