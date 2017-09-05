@@ -21,12 +21,12 @@ use \Paggi\Paggi;
 use \Paggi\Charge;
 
 # First, set your API Key
-Paggi::setApiKey('B31DCE74-E768-43ED-86DA-85501612548F')
+Paggi::setApiKey('B31DCE74-E768-43ED-86DA-85501612548F');
 
 $charges = Charge::findAll();
-$charge  = $charges->result[0];
+$charge  = $charges['result'][0];
 
-$charge->cancel()
+$charge->cancel();
 ```
 
 TO see more details, visit our [API documentation](https://docs.paggi.com/docs)
