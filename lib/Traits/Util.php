@@ -16,7 +16,7 @@ trait Util
      * @return string - Response json
      * @throws PaggiException Exception
      */
-    protected function manageResponse($responseCurl)
+    static protected function manageResponse($responseCurl)
     {
         $reflectedClass = get_called_class();
         $responseBody   = $responseCurl->response;
