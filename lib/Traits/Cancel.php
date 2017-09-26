@@ -23,7 +23,7 @@ trait Cancel
     $curl = $rest->getCurl();
     $class = new \ReflectionClass(self::class);
 
-    $curl->put($rest->getEndpoint($class->getShortName()) .'/cancel'. $id);
+    $curl->put($rest->getEndpoint($class->getShortName()). '/'. $id .'/cancel');
 
     return self::manageResponse($curl);
   }
