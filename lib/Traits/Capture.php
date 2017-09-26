@@ -23,7 +23,7 @@ trait Capture
     $curl = $rest->getCurl();
     $class = new \ReflectionClass(self::class);
 
-    $curl->put($rest->getEndpoint($class->getShortName()) . '/'. $id. 'capture');
+    $curl->put($rest->getEndpoint($class->getShortName()) . '/'. $id. '/capture');
 
     return self::manageResponse($curl);
   }
