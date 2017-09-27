@@ -54,7 +54,7 @@ trait Util
      *
      * @return array Array error
      */
-    protected static function _getError($responseCurl)
+    static protected static function _getError($responseCurl)
     {
         //The original message error from API
         $originalError = json_decode($responseCurl->rawResponse, true);
