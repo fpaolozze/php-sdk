@@ -17,13 +17,15 @@ trait Capture
    * @param $id - Resouce ID
    * @return mixed - Exception or a Response
    */
-  static function capture($id)
+  public function capture()
   {
     $rest = new RestClient();
     $curl = $rest->getCurl();
     $class = new \ReflectionClass(self::class);
 
-    $curl->put($rest->getEndpoint($class->getShortName()) . '/'. $id. '/capture');
+    $idResource = get_object_vars($this)['id'];
+
+    $curl->put($rest->getEndpoint($class->getShortName()) . '/'. $idResource. '/capture');
 
     return self::manageResponse($curl);
   }
