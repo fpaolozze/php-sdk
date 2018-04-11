@@ -1,20 +1,18 @@
 # Paggi PHP SDK
 
-This repository contains the software of Paggi PHP SDK.
+Use esse SDK para integrar sua aplicação com a nossa API [Paggi API](https://docs.paggi.com) 
 
-You can use this SDK to integrate your application with [Paggi API](https://docs.paggi.com)
+## Instalação 
 
-## Instalation
-
-Use [composer](https://getcomposer.org/) to install this SDK:
+Instale via [composer](https://getcomposer.org/)
 
 ```sh
 composer require paggi/sdk
 ```
 
-## Usage
+## Como usar
 
-See the example below:
+Exemplos de integração
 
 ```php
 use \Paggi\Paggi;
