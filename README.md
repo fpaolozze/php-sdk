@@ -18,7 +18,7 @@ Exemplos de integração
 use \Paggi\Paggi;
 use \Paggi\Charge;
 
-# First, set your API Key
+#API Key
 Paggi::setApiKey('B31DCE74-E768-43ED-86DA-85501612548F');
 
 $charges = Charge::findAll();
